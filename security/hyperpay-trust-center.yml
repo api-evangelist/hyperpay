@@ -1,0 +1,23 @@
+generated: '2026-07-17'
+method: searched
+probe: true
+source: https://www.hyperpay.com/
+url: https://www.hyperpay.com/
+certifications:
+- PCI-DSS Level 1
+- SAMA (Saudi Central Bank) licensed payment service provider
+evidence:
+- source: https://www.hyperpay.com/
+  keywords:
+  - pci dss
+  - pci-dss level 1
+  - sama
+  - saudi central bank
+  - secure payment
+notes: >-
+  HyperPay is a PCI-DSS Level 1 certified payment gateway operating in the MENA
+  region and licensed / regulated as a payment service provider under the Saudi
+  Central Bank (SAMA). The underlying processing platform (ACI / OPPWA) is itself
+  PCI-DSS certified. HyperPay does not publish a dedicated machine-readable trust
+  center; certifications are stated on the corporate site and in onboarding
+  materials. Verify current certification scope with a HyperPay account manager.

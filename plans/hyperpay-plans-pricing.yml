@@ -1,0 +1,118 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: HyperPay
+providerId: hyperpay
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Payment Gateway
+- Fintech
+- MENA
+- Saudi Arabia
+- Plans
+description: >-
+  HyperPay does not publish a public self-service price list; pricing is
+  quote-based and set during merchant onboarding, and typically pairs a
+  gateway/setup fee and monthly fee with per-transaction fees that vary by
+  payment method (cards vs. the domestic mada scheme). A separate acquiring
+  bank merchant account (e.g. with a Saudi bank) is required and may add its
+  own fees. The figures below are representative amounts reported by
+  third-party Saudi payment-gateway market comparisons (2025-2026), NOT
+  official published HyperPay rates - confirm current terms with a HyperPay
+  account manager.
+notes: >-
+  All SAR figures are third-party market estimates, not first-party published
+  prices. HyperPay's own site markets features and directs merchants to a sales
+  contact for pricing. reconciled:false until confirmed against an official
+  HyperPay quote.
+sources:
+- https://www.hyperpay.com/
+- https://www.hyperpay.com/contact-us/
+- https://gulfsaasreview.com/article/payment-gateway-fees-saudi-arabia-2026
+- https://raghdan.sa/en/news/payment-gateways-in-saudi-arabia-guide-2025-requirements-fees-registration-steps-and-comprehensive-comparison/
+plans:
+- id: hyperpay-standard-merchant
+  name: Standard Merchant (quote-based)
+  type: subscription
+  currency: SAR
+  description: >-
+    Gateway onboarding with a setup fee plus a recurring monthly gateway fee,
+    combined with per-transaction fees that differ by payment method. Amounts
+    are third-party-reported estimates.
+  entries:
+  - label: Setup / onboarding fee
+    name: setup_fee
+    type: flat
+    metric: account
+    limit: 1
+    timeFrame: once
+    geo: SA
+    unit: 1
+    price: ~1,500 SAR (third-party estimate)
+    userMultiplied: false
+  - label: Monthly gateway fee
+    name: monthly_fee
+    type: flat
+    metric: account
+    limit: -1
+    timeFrame: month
+    geo: SA
+    unit: 1
+    price: ~250 SAR/month (third-party estimate)
+    userMultiplied: false
+  - label: Card transactions (VISA / MASTER / AMEX)
+    name: card_txn_fee
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: month
+    geo: SA
+    unit: 1
+    price: ~2.75% + 1 SAR per transaction (third-party estimate)
+    userMultiplied: false
+  - label: mada (Saudi domestic debit scheme) transactions
+    name: mada_txn_fee
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: month
+    geo: SA
+    unit: 1
+    price: ~1.5% + 1 SAR per transaction (third-party estimate)
+    userMultiplied: false
+  elements:
+  - name: COPYandPAY Widget
+  - name: Server-to-Server API
+  - name: Registration Tokens
+  - name: mada
+  - name: Apple Pay
+  - name: STC Pay
+- id: hyperpay-enterprise
+  name: Enterprise (negotiated)
+  type: enterprise
+  currency: SAR
+  description: >-
+    Volume merchants negotiate blended per-transaction rates and fees based on
+    GMV, settlement terms, and product mix (including HyperSplit payouts and
+    HyperBill invoicing). Contact HyperPay sales.
+  entries:
+  - label: Negotiated agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: SA
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Volume Pricing
+  - name: HyperSplit
+  - name: HyperBill
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

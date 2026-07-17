@@ -1,0 +1,50 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: HyperPay
+providerId: hyperpay
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Payment Gateway
+- MENA
+- Saudi Arabia
+- Rate Limiting
+- Quotas
+description: >-
+  HyperPay (ACI / OPPWA) does not publish specific public API rate-limit
+  numbers. As a card-present-scale payment platform it applies
+  transaction-throughput controls and anti-fraud / velocity checks per merchant
+  channel (entityId) rather than a documented requests-per-minute quota. Bursty
+  or abnormal traffic can be throttled or blocked by fraud tooling. Concrete
+  numeric limits are not documented and are not reconciled in this artifact.
+notes: >-
+  No first-party rate-limit table is published. Confirm any throughput ceilings,
+  velocity rules, and retry guidance with a HyperPay account manager during
+  onboarding. reconciled:false.
+sources:
+- https://hyperpay.docs.oppwa.com/
+- https://www.hyperpay.com/
+responseCodes:
+  throttled: 429
+limits:
+- name: Per-channel transaction throughput
+  scope: entityId
+  metric: transactions
+  limit: see provider / account manager
+  notes: Throughput is governed per merchant channel; no public numeric quota is documented.
+- name: Velocity / anti-fraud controls
+  scope: merchant
+  metric: transactions
+  limit: risk-based
+  notes: Abnormal velocity or fraud signals can trigger throttling or blocking independent of a fixed rate limit.
+policies:
+- name: Risk-Based Throttling
+  description: Limits are enforced by fraud and risk tooling per merchant channel rather than a published RPM ceiling.
+- name: Backoff Strategy
+  description: Clients should implement retries with exponential backoff and idempotent merchantTransactionId values to avoid duplicate charges.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

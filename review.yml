@@ -1,0 +1,69 @@
+aid: hyperpay
+name: HyperPay
+review:
+  question: Does HyperPay expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-17'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. HyperPay (ACI / OPPWA Open Payment
+    Platform) exposes only synchronous HTTPS REST endpoints plus asynchronous
+    server-to-server webhook notifications (HTTP POST callbacks to a merchant
+    URL, secured with AES-encrypted payloads). Webhooks are outbound HTTP
+    callbacks, not a WebSocket or SSE streaming surface, so no AsyncAPI channel
+    was modeled.
+findings:
+  summary: |
+    HyperPay does not publish a documented public WebSocket API. All documented
+    integration surfaces are HTTPS REST: the COPYandPAY hosted widget
+    (POST /v1/checkouts, GET /v1/checkouts/{id}/payment), Server-to-Server
+    payments (POST /v1/payments, POST /v1/payments/{id}), registration tokens
+    (POST /v1/registrations ...), and query/reporting (GET /v1/query/{id}) under
+    https://eu-prod.oppwa.com/v1 (live) and https://test.oppwa.com/v1 (test).
+    Asynchronous result delivery is via merchant webhook callbacks (HTTP POST),
+    not WebSocket. No ws:// or wss:// endpoint is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://eu-prod.oppwa.com/v1
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Outbound HTTP POST notifications to a merchant-configured URL with AES-encrypted payloads. Not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the HyperPay / OPPWA API reference as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://eu-prod.oppwa.com/v1/checkouts
+    - GET    https://eu-prod.oppwa.com/v1/checkouts/{id}/payment
+    - POST   https://eu-prod.oppwa.com/v1/payments
+    - POST   https://eu-prod.oppwa.com/v1/payments/{id}
+    - POST   https://eu-prod.oppwa.com/v1/registrations
+    - GET    https://eu-prod.oppwa.com/v1/registrations/{id}
+    - DELETE https://eu-prod.oppwa.com/v1/registrations/{id}
+    - POST   https://eu-prod.oppwa.com/v1/registrations/{id}/payments
+    - GET    https://eu-prod.oppwa.com/v1/query/{id}
+sources:
+  - url: https://hyperpay.docs.oppwa.com/
+    type: Documentation
+    note: Developer portal lists REST integration guides (COPYandPAY, Server-to-Server); no WebSocket mentioned.
+  - url: https://hyperpay.docs.oppwa.com/tutorials/server-to-server
+    type: Documentation
+    note: Server-to-Server flows are HTTP POST to /v1/payments and /v1/payments/{id}.
+  - url: https://www.hyperpay.com/integration-guide/
+    type: Documentation
+    note: Lists COPYandPAY widget, Server-to-Server API, HyperSplit, HyperBill, Mobile SDK - all HTTP REST.
+  - url: https://test.oppwa.com/
+    type: APIReference
+    note: Live test host (HTTP 200 on 2026-07-17) serving the same REST resource paths.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: false
+  reason: |
+    No WebSocket or SSE streaming protocol surface exists. Asynchronous delivery
+    is limited to outbound merchant webhook callbacks (HTTP POST), which are not
+    in AsyncAPI WebSocket/SSE scope, so no AsyncAPI document or apis.yml AsyncAPI
+    pointer was added.

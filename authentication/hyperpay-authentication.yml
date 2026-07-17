@@ -1,0 +1,28 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/hyperpay-openapi.yml
+summary:
+  types:
+  - http
+notes: >-
+  HyperPay (ACI / OPPWA) authenticates every request with TWO credentials issued
+  together: an `entityId` channel identifier (a form field on writes, a query
+  parameter on reads) that scopes the request to a specific merchant channel, and
+  an `Authorization: Bearer <access-token>` header. Requests are
+  application/x-www-form-urlencoded over TLS. Separate entityId values are issued
+  per payment-method channel (e.g. one for cards, one for mada, one for Apple
+  Pay). Test and live use distinct credentials and hosts.
+schemes:
+- name: bearer_token
+  type: http
+  scheme: bearer
+  bearerFormat: accessToken
+  sources:
+  - openapi/hyperpay-openapi.yml
+- name: entity_id
+  type: apiKey
+  in: query
+  paramName: entityId
+  note: Also sent as a form field on POST requests; identifies the merchant channel.
+  sources:
+  - openapi/hyperpay-openapi.yml

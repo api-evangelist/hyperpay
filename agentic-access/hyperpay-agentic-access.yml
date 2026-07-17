@@ -1,0 +1,145 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/hyperpay-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. Payment operations move money and MUST default to human-in-the-loop.
+  See research/curity/agentic-governance/.
+summary:
+  operations: 9
+  by_action_class:
+    acting: 6
+    connected: 3
+  by_consequence:
+    write: 6
+    read: 3
+  human_in_the_loop_required: 5
+operations:
+- path: /v1/checkouts
+  method: post
+  operationId: createCheckout
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - high-value
+    audit: required
+- path: /v1/checkouts/{id}/payment
+  method: get
+  operationId: getCheckoutStatus
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/payments
+  method: post
+  operationId: createPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - card-data
+      - high-value
+    audit: required
+- path: /v1/payments/{id}
+  method: post
+  operationId: managePayment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - refund
+      - reversal
+    audit: required
+- path: /v1/registrations
+  method: post
+  operationId: createRegistration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - card-data
+      - tokenization
+    audit: required
+- path: /v1/registrations/{id}
+  method: get
+  operationId: getRegistration
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: required
+- path: /v1/registrations/{id}
+  method: delete
+  operationId: deleteRegistration
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+    audit: required
+- path: /v1/registrations/{id}/payments
+  method: post
+  operationId: createRegistrationPayment
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - recurring
+      - high-value
+    audit: required
+- path: /v1/query/{id}
+  method: get
+  operationId: queryPayment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

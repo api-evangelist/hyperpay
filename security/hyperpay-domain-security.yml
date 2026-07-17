@@ -1,0 +1,42 @@
+generated: '2026-07-17'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.hyperpay.com
+  https: true
+  http_status: 200
+  cert_expires: Mar 26 23:59:59 2027 GMT
+  hsts: false
+- host: hyperpay.com
+  https: true
+  http_status: 301
+  note: Redirects to www.hyperpay.com.
+- host: eu-prod.oppwa.com
+  https: true
+  http_status: 200
+  cert_expires: Aug 11 00:52:34 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+  hsts_include_subdomains: true
+  hsts_preload: true
+  note: Production (live) API host of the ACI / OPPWA platform HyperPay runs on.
+- host: test.oppwa.com
+  https: true
+  http_status: 200
+  cert_expires: Aug 11 00:52:34 2026 GMT
+  hsts: true
+  hsts_max_age: 63072000
+  hsts_include_subdomains: true
+  hsts_preload: true
+  note: Integration / test API host.
+- host: hyperpay.docs.oppwa.com
+  https: true
+  http_status: 200
+  note: Developer documentation portal.
+notes: >-
+  API traffic terminates on the ACI / OPPWA hosts (eu-prod.oppwa.com live,
+  test.oppwa.com test), which enforce HSTS with a two-year max-age, subdomain
+  inclusion, and preload. All payment operations require TLS. HyperPay is a
+  PCI-DSS Level 1 certified payment service provider; using the COPYandPAY widget
+  keeps raw card data off the merchant server, while Server-to-Server requires the
+  merchant to hold PCI-DSS scope.

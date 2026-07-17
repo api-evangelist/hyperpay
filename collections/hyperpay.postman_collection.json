@@ -1,0 +1,240 @@
+{
+  "info": {
+    "name": "HyperPay Payment API",
+    "description": "HyperPay (ACI / OPPWA Open Payment Platform) REST API covering the COPYandPAY hosted widget, Server-to-Server payments, registration tokens, and query. Requests are application/x-www-form-urlencoded over TLS, authenticated with an entityId channel identifier plus an Authorization: Bearer access token. Set baseUrl to https://test.oppwa.com (test) or https://eu-prod.oppwa.com (live). Modeled from https://hyperpay.docs.oppwa.com (2026-07-17).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://test.oppwa.com" },
+    { "key": "entityId", "value": "8a8294174b7ecb28014b9699220015ca" },
+    { "key": "accessToken", "value": "REPLACE_WITH_BEARER_TOKEN" },
+    { "key": "checkoutId", "value": "" },
+    { "key": "paymentId", "value": "" },
+    { "key": "registrationId", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{accessToken}}", "type": "string" }
+    ]
+  },
+  "item": [
+    {
+      "name": "COPYandPAY",
+      "item": [
+        {
+          "name": "Prepare a checkout",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/checkouts",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "checkouts"]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "entityId", "value": "{{entityId}}" },
+                { "key": "amount", "value": "92.00" },
+                { "key": "currency", "value": "SAR" },
+                { "key": "paymentType", "value": "DB" },
+                { "key": "merchantTransactionId", "value": "order-0001" }
+              ]
+            },
+            "description": "Creates a checkout and returns an id used to load the COPYandPAY widget."
+          }
+        },
+        {
+          "name": "Get checkout payment status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/checkouts/{{checkoutId}}/payment?entityId={{entityId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "checkouts", "{{checkoutId}}", "payment"],
+              "query": [
+                { "key": "entityId", "value": "{{entityId}}" }
+              ]
+            },
+            "description": "Reads the result of a checkout after the shopper submits the widget."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments (Server-to-Server)",
+      "item": [
+        {
+          "name": "Create payment (debit / preauth)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/payments",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "payments"]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "entityId", "value": "{{entityId}}" },
+                { "key": "amount", "value": "92.00" },
+                { "key": "currency", "value": "SAR" },
+                { "key": "paymentBrand", "value": "MADA" },
+                { "key": "paymentType", "value": "DB" },
+                { "key": "card.number", "value": "4111111111111111" },
+                { "key": "card.holder", "value": "Jane Jones" },
+                { "key": "card.expiryMonth", "value": "05" },
+                { "key": "card.expiryYear", "value": "2034" },
+                { "key": "card.cvv", "value": "123" }
+              ]
+            },
+            "description": "Direct server-to-server payment. paymentType DB=debit, PA=pre-authorization. Requires merchant PCI-DSS scope."
+          }
+        },
+        {
+          "name": "Capture / Refund / Reversal (back-office)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/payments/{{paymentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "payments", "{{paymentId}}"]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "entityId", "value": "{{entityId}}" },
+                { "key": "amount", "value": "92.00" },
+                { "key": "currency", "value": "SAR" },
+                { "key": "paymentType", "value": "RF" }
+              ]
+            },
+            "description": "References a prior payment: paymentType CP=capture, RF=refund, RV=reversal/void."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Registration Tokens",
+      "item": [
+        {
+          "name": "Register (tokenize) a card",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/registrations",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "registrations"]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "entityId", "value": "{{entityId}}" },
+                { "key": "paymentBrand", "value": "VISA" },
+                { "key": "card.number", "value": "4111111111111111" },
+                { "key": "card.holder", "value": "Jane Jones" },
+                { "key": "card.expiryMonth", "value": "05" },
+                { "key": "card.expiryYear", "value": "2034" },
+                { "key": "card.cvv", "value": "123" }
+              ]
+            },
+            "description": "Stores a payment instrument and returns a registration token id."
+          }
+        },
+        {
+          "name": "Get registration",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/registrations/{{registrationId}}?entityId={{entityId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "registrations", "{{registrationId}}"],
+              "query": [
+                { "key": "entityId", "value": "{{entityId}}" }
+              ]
+            },
+            "description": "Retrieves a stored registration token."
+          }
+        },
+        {
+          "name": "Delete registration",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/registrations/{{registrationId}}?entityId={{entityId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "registrations", "{{registrationId}}"],
+              "query": [
+                { "key": "entityId", "value": "{{entityId}}" }
+              ]
+            },
+            "description": "Deletes a stored registration token."
+          }
+        },
+        {
+          "name": "Pay with registration token",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/v1/registrations/{{registrationId}}/payments",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "registrations", "{{registrationId}}", "payments"]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                { "key": "entityId", "value": "{{entityId}}" },
+                { "key": "amount", "value": "92.00" },
+                { "key": "currency", "value": "SAR" },
+                { "key": "paymentType", "value": "DB" },
+                { "key": "standingInstruction.source", "value": "CIT" },
+                { "key": "standingInstruction.mode", "value": "REPEATED" },
+                { "key": "standingInstruction.type", "value": "UNSCHEDULED" }
+              ]
+            },
+            "description": "Executes a one-click or recurring payment against a stored registration token."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Query",
+      "item": [
+        {
+          "name": "Query payment status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/v1/query/{{paymentId}}?entityId={{entityId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "query", "{{paymentId}}"],
+              "query": [
+                { "key": "entityId", "value": "{{entityId}}" }
+              ]
+            },
+            "description": "Retrieves the status of a payment by id or resourcePath."
+          }
+        }
+      ]
+    }
+  ]
+}

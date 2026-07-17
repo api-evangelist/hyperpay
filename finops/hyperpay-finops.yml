@@ -1,0 +1,98 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: HyperPay
+providerId: hyperpay
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Payment Gateway
+- MENA
+- Saudi Arabia
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of HyperPay merchant costs. Unlike usage-metered API vendors,
+  HyperPay's cost model is payment-processing economics: a fixed setup fee, a
+  recurring monthly gateway fee, and per-transaction fees that vary by payment
+  method (cards vs. the domestic mada scheme), plus separate acquiring-bank
+  fees. Costs scale with transaction count and volume (GMV) and settle in SAR.
+notes: >-
+  Fee amounts are quote-based and not publicly published by HyperPay; the meters
+  below describe the cost structure, not confirmed rates. reconciled:false.
+sources:
+- https://www.hyperpay.com/
+- https://www.hyperpay.com/contact-us/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: HyperPay
+serviceCategory: Payment Processing
+billingModel:
+  pricingCategory: Transaction-Based
+  billingFrequency: Monthly
+  billingCurrency: SAR
+  chargeCategories:
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: HyperPay Payment Gateway
+  ServiceCategory: Payment Processing
+  ProviderName: HyperPay
+  PublisherName: HyperPay
+  InvoiceIssuerName: HyperPay
+  BillingCurrency: SAR
+  ChargeCategory: Usage
+  PricingCategory: Transaction-Based
+meters:
+- name: setup_fee
+  description: One-time onboarding / setup fee charged when the merchant channel is provisioned.
+  unit: account
+  aggregation: sum
+  dimensions:
+  - merchant
+- name: monthly_gateway_fee
+  description: Recurring monthly gateway subscription fee.
+  unit: months
+  aggregation: sum
+  dimensions:
+  - merchant
+- name: card_transaction_fee
+  description: Percentage-plus-fixed fee per card transaction (VISA / MASTER / AMEX).
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - paymentBrand
+- name: mada_transaction_fee
+  description: Percentage-plus-fixed fee per mada domestic-scheme transaction (typically lower than cards).
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - paymentBrand
+- name: refund_chargeback_fees
+  description: Fees associated with refunds, chargebacks, and reversals via the back-office API.
+  unit: events
+  aggregation: sum
+  dimensions:
+  - merchant
+principles:
+- name: Visibility
+  description: Reconcile HyperPay settlement reports and the Query API against internal order data per payment brand.
+- name: Allocation
+  description: Tag transactions by merchant channel (entityId) and payment brand to attribute processing cost per product/store.
+- name: Optimization
+  description: Route eligible domestic volume through mada (lower fees than international cards); negotiate blended rates as GMV grows.
+- name: Accountability
+  description: Assign an owner for gateway spend; review monthly gateway + per-transaction + acquiring-bank fees against GMV.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
