@@ -1,0 +1,54 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/hyperpay-openapi.yml
+notes: >-
+  Entity-relationship graph derived from the OpenAPI schemas and id-reference
+  fields. HyperPay resources are addressed by an opaque id returned on creation;
+  a Payment may carry a registrationId linking it to a stored token.
+entities:
+  - name: Checkout
+    created_by: createCheckout (POST /v1/checkouts)
+    id_field: id
+    fields: [id, amount, currency, paymentType, merchantTransactionId, result]
+    note: Short-lived session that initializes the COPYandPAY widget.
+  - name: Payment
+    created_by: [createPayment, createRegistrationPayment, managePayment]
+    id_field: id
+    fields: [id, paymentType, paymentBrand, amount, currency, result, card, registrationId, merchantTransactionId]
+    note: Core money-movement resource; back-office ops (CP/RF/RV) reference it by id.
+  - name: Registration
+    created_by: createRegistration (POST /v1/registrations)
+    id_field: id
+    fields: [id, paymentBrand, card, result]
+    note: Stored (tokenized) payment instrument for one-click / recurring.
+  - name: Result
+    embedded: true
+    fields: [code, description]
+    note: Value object embedded in every response (see errors/hyperpay-result-codes.yml).
+  - name: Card
+    embedded: true
+    fields: [bin, last4Digits, holder, expiryMonth, expiryYear]
+relationships:
+  - from: Payment
+    to: Registration
+    kind: belongs_to
+    via: registrationId
+    note: A registration-token payment references the stored token it charged.
+  - from: Payment
+    to: Payment
+    kind: belongs_to
+    via: id (path)
+    note: Back-office capture/refund/reversal references the original payment id.
+  - from: Checkout
+    to: Payment
+    kind: has_one
+    via: getCheckoutStatus (GET /v1/checkouts/{id}/payment)
+    note: A completed checkout resolves to a payment result.
+  - from: Payment
+    to: Result
+    kind: has_one
+    via: result
+  - from: Payment
+    to: Card
+    kind: has_one
+    via: card

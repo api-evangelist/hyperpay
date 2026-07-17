@@ -1,0 +1,24 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/hyperpay-openapi.yml + conventions/ + errors/
+notes: >-
+  Packaged Agent Skills for HyperPay's marquee flows. Every step is grounded in a
+  real operationId from openapi/hyperpay-openapi.yml. HyperPay/OPPWA publishes no
+  AGENTS.md or provider skill files (searched 2026-07-17).
+skills:
+  - file: hyperpay-copyandpay-checkout.md
+    name: Accept a card payment with the COPYandPAY widget
+    api: openapi/hyperpay-openapi.yml
+    operations: [createCheckout, getCheckoutStatus]
+  - file: hyperpay-server-to-server-payment.md
+    name: Take a server-to-server payment
+    api: openapi/hyperpay-openapi.yml
+    operations: [createPayment, queryPayment]
+  - file: hyperpay-tokenize-and-recurring.md
+    name: Tokenize a card and charge it for recurring / one-click
+    api: openapi/hyperpay-openapi.yml
+    operations: [createRegistration, createRegistrationPayment, getRegistration, deleteRegistration]
+  - file: hyperpay-capture-refund-reverse.md
+    name: Capture, refund, or reverse a payment
+    api: openapi/hyperpay-openapi.yml
+    operations: [managePayment, queryPayment]

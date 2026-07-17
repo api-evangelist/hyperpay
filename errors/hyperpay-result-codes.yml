@@ -1,0 +1,65 @@
+generated: '2026-07-17'
+method: searched
+source: https://hyperpay.docs.oppwa.com/reference/resultCodes
+format: proprietary-result-code
+envelope:
+  field: result.code
+  description_field: result.description
+  note: >-
+    Every response (payment, registration, checkout, query, webhook payload)
+    carries a result object with a dotted numeric code and a human-readable
+    description. Success is determined by matching the code against the success
+    regex, NOT by HTTP status (a declined payment still returns HTTP 200).
+notes: >-
+  The OPPWA result-code system groups codes by dotted-numeric prefix, each group
+  matched by a regular expression. Codes below are the documented group patterns
+  and representative examples captured verbatim from the reference.
+groups:
+  - id: success
+    pattern: '/^(000\.000\.|000\.100\.1|000\.[36]|000\.400\.[1][12]0)/'
+    meaning: Successful authorization / capture.
+    examples:
+      - {code: '000.000.000', description: 'Transaction succeeded'}
+      - {code: '000.100.110', description: "Request successfully processed in 'Merchant in Integrator Test Mode'"}
+      - {code: '000.300.000', description: 'Two-step transaction succeeded'}
+      - {code: '000.600.000', description: 'transaction succeeded due to external update'}
+  - id: success-manual-review
+    pattern: '/^(000\.400\.0[^3]|000\.400\.100)/'
+    meaning: Processed but flagged for manual fraud review.
+    examples:
+      - {code: '000.400.000', description: 'Transaction succeeded (please review manually due to fraud suspicion)'}
+      - {code: '000.400.100', description: 'Transaction succeeded, risk after payment rejected'}
+  - id: pending
+    pattern: '/^(000\.200)/'
+    meaning: Open/pending session, action required within ~30 minutes.
+    examples:
+      - {code: '000.200.000', description: 'transaction pending'}
+      - {code: '000.200.103', description: 'checkout is pending'}
+  - id: pending-delayed
+    pattern: '/^(800\.400\.5|100\.400\.500)/'
+    meaning: Awaiting confirmation of a non-instant payment (may take days).
+    examples:
+      - {code: '800.400.500', description: 'Waiting for confirmation of non-instant payment. Denied for now.'}
+  - id: communication-error
+    pattern: '/^(900\.[1234]00|000\.400\.030)/'
+    meaning: Connectivity / timeout; retry permitted.
+    examples:
+      - {code: '900.100.300', description: 'timeout, uncertain result'}
+      - {code: '900.100.301', description: 'Transaction timed out without response from connector/acquirer. It was reversed.'}
+  - id: system-error
+    pattern: '/^(800\.[56]|999\.|600\.1|800\.800\.[84])/'
+    meaning: Platform-level failure; contact support.
+    examples:
+      - {code: '999.999.999', description: 'UNDEFINED CONNECTOR/ACQUIRER ERROR'}
+  - id: validation-error
+    pattern: '/^(600\.[23]|500\.[12]|800\.121)/'
+    meaning: Merchant configuration / request validation problem.
+    examples:
+      - {code: '600.200.100', description: 'invalid Payment Method'}
+      - {code: '500.100.201', description: 'Channel/Merchant is disabled (no processing possible)'}
+  - id: chargeback
+    pattern: '/^(000\.100\.2)/'
+    meaning: Transaction reversed by the issuer (chargeback).
+    examples:
+      - {code: '000.100.220', description: 'Fraudulent Transaction'}
+      - {code: '000.100.221', description: 'Merchandise Not Received'}

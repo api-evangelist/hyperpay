@@ -1,0 +1,42 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  hyperpay.docs.oppwa.com + www.hyperpay.com (PCI/SAMA claims) + derived from
+  openapi/hyperpay-openapi.yml
+notes: >-
+  Standards HyperPay (on the ACI/OPPWA platform) conforms to. PCI-DSS Level 1 and
+  SAMA licensing are published compliance posture (see security/hyperpay-trust-center.yml);
+  the rest are derived from the OpenAPI and documented behaviour. HyperPay does not
+  use RFC 9457 problem+json — errors are carried in a proprietary result-code
+  envelope (see errors/hyperpay-result-codes.yml).
+standards:
+  - id: pci-dss
+    conforms: true
+    level: Level 1
+    evidence: Published on www.hyperpay.com; ACI/OPPWA platform is PCI-DSS certified.
+  - id: sama-psp-license
+    conforms: true
+    evidence: Licensed payment service provider under the Saudi Central Bank (SAMA).
+  - id: 3d-secure
+    conforms: true
+    evidence: 3-D Secure result-code group (100.390.*, 800.400.2*) and card auth flows.
+  - id: emv-3ds
+    conforms: true
+    evidence: Card-not-present authentication supported on the OPPWA platform.
+  - id: oauth2
+    conforms: false
+    evidence: Auth is a static Bearer access token + entityId, not an OAuth2 flow.
+  - id: openid-connect
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a proprietary result.code/result.description envelope, not problem+json.
+  - id: idempotency-keys
+    conforms: false
+    evidence: No Idempotency-Key header documented in the OPPWA API reference.
+  - id: webhooks
+    conforms: true
+    evidence: AES-256-GCM encrypted webhook notifications (PAYMENT/REGISTRATION/SCHEDULE/RISK).
+  - id: iso-4217-currency
+    conforms: true
+    evidence: Amounts carry an ISO 4217 currency code (SAR for Saudi merchants).

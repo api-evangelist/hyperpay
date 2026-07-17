@@ -1,0 +1,44 @@
+generated: '2026-07-17'
+method: searched
+source: https://hyperpay.docs.oppwa.com/reference/resultCodes
+envelope:
+  field: result.code
+  note: >-
+    Declines are carried in the same result.code envelope as successes (HTTP 200
+    with a non-success result code). These are the bank/acquirer decline and risk
+    rejection groups — the payments-specific complement to
+    errors/hyperpay-result-codes.yml. Verbatim group patterns and examples from
+    the OPPWA result-code reference.
+masking:
+  note: >-
+    Detailed decline reasons (blacklist, fraud engine, AVS) are visible to the
+    merchant in the API result but are typically masked to the buyer as a generic
+    "payment declined" message.
+decline_codes:
+  - group: bank-decline
+    pattern: '/^(800\.[17]00|800\.800\.[123])/'
+    meaning: Hard decline by the bank/acquirer; use an alternative payment method.
+    codes:
+      - {code: '800.100.153', meaning: 'transaction declined (invalid CVV)', action: 'Ask the shopper to re-enter the CVV.'}
+      - {code: '800.100.192', meaning: 'Amount reserved; ensure the CVV code is accurate before retrying', action: 'Verify CVV before retry.'}
+  - group: risk-rejection
+    pattern: '/^(100\.400\.[0-3]|100\.380\.100|100\.380\.11|100\.380\.4|100\.380\.5)/'
+    meaning: Blocked by the external fraud / risk engine.
+    codes:
+      - {code: '100.400.121', meaning: 'account blacklisted', action: 'Do not retry; escalate to risk review.'}
+      - {code: '100.400.242', meaning: 'Denied by ThreatMetrix', action: 'Do not retry; risk decision.'}
+  - group: address-validation
+    pattern: '/^(800\.400\.1)/'
+    meaning: AVS (address) mismatch; amount may be reserved and released later.
+    codes:
+      - {code: '800.400.110', meaning: "AVS Check Failed. Amount reserved and released in a few business days.", action: 'Correct billing address and retry.'}
+  - group: 3d-secure
+    pattern: '/^(800\.400\.2|100\.390)/'
+    meaning: 3-D Secure authentication failed / rejected.
+    codes:
+      - {code: '100.390.100', meaning: '3D Secure transaction rejected', action: 'Re-attempt with successful 3DS authentication.'}
+  - group: blacklist
+    pattern: '/^(800\.[32])/'
+    meaning: Matched a risk/blacklist rule; investigate.
+    codes:
+      - {code: '800.300.301', meaning: 'ip blacklisted', action: 'Do not retry from this IP.'}

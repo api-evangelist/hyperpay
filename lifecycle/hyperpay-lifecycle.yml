@@ -1,0 +1,30 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  hyperpay.docs.oppwa.com/reference/parameters + tutorials/webhooks + live host
+  probes (2026-07-17)
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://hyperpay.docs.oppwa.com/reference/parameters
+  note: >-
+    All endpoints are under /v1. The platform documents forward-compatibility:
+    "expect new fields being added to the JSON structure at any time in the
+    future" — clients must parse responses tolerantly.
+deprecation:
+  policy_url: https://hyperpay.docs.oppwa.com/tutorials/webhooks
+  sunset_header: false
+  note: >-
+    The `notificationUrl` request parameter is deprecated; the platform directs
+    merchants to configured Webhooks (Administration > Webhooks) instead. No
+    RFC 8594 Sunset/Deprecation headers are documented.
+  deprecated_parameters:
+    - notificationUrl (use configured Webhooks)
+sla:
+  url: null
+  note: SLA/uptime targets are set per merchant contract; no public SLA page found.
+status_page: null
+status_page_note: >-
+  No public status page resolves for HyperPay or the OPPWA platform
+  (status.oppwa.com / status.hyperpay.com did not resolve on 2026-07-17).
+deprecated_operations: []

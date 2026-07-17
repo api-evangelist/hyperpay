@@ -1,6 +1,7 @@
 generated: '2026-07-17'
-method: derived
+method: searched
 source: openapi/hyperpay-openapi.yml
+docs: https://hyperpay.docs.oppwa.com/reference/parameters
 summary:
   types:
   - http

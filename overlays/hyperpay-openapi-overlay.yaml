@@ -1,0 +1,36 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for HyperPay Payment API
+  version: 1.0.0
+extends: openapi/hyperpay-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: hyperpay
+      x-apievangelist-platform: ACI / OPPWA Open Payment Platform
+      x-apievangelist-payments: true
+      x-apievangelist-region: MENA / Saudi Arabia
+      x-apievangelist-artifacts:
+        authentication: authentication/hyperpay-authentication.yml
+        conventions: conventions/hyperpay-conventions.yml
+        error_catalog: errors/hyperpay-result-codes.yml
+        decline_codes: errors/hyperpay-decline-codes.yml
+        webhooks: asyncapi/hyperpay-webhooks.yml
+        sandbox: sandbox/hyperpay-sandbox.yml
+        data_model: data-model/hyperpay-data-model.yml
+        lifecycle: lifecycle/hyperpay-lifecycle.yml
+        agentic_access: agentic-access/hyperpay-agentic-access.yml
+  - target: $.paths['/v1/payments'].post
+    update:
+      x-agentic-consequence: physical
+      x-agentic-human-in-the-loop: required
+      x-result-code-field: result.code
+  - target: $.paths['/v1/payments/{id}'].post
+    update:
+      x-agentic-consequence: physical
+      x-agentic-human-in-the-loop: required
+      x-backoffice: true
+  - target: $.components.securitySchemes.bearerAuth
+    update:
+      x-companion-credential: entityId (channel identifier, required on every request)
+      x-docs: https://hyperpay.docs.oppwa.com/reference/parameters

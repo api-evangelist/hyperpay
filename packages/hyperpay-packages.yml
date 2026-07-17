@@ -1,0 +1,54 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  hyperpay.docs.oppwa.com SDK docs + ACI/OPPWA Mobile SDK docs
+  (peachpayments.docs.oppwa.com/msdk) + GitHub/npm/Packagist registry search
+notes: >-
+  HyperPay runs on the ACI Worldwide / OPPWA "Open Payment Platform". Server-side
+  integration is a direct REST (application/x-www-form-urlencoded) call rather
+  than a language SDK, and the COPYandPAY browser widget is a hosted JavaScript
+  loader (see components/). The one first-party client library is the ACI/OPPWA
+  Mobile SDK (iOS OPPWAMobile.xcframework + Android com.oppwa.mobile) that HyperPay
+  distributes to merchants for native mobile checkout. The remaining entries are
+  community-maintained wrappers, marked official:false.
+packages:
+  - language: swift
+    platform: ios
+    registry: vendor
+    name: OPPWAMobile
+    url: https://hyperpay.docs.oppwa.com/tutorials/mobile-sdk
+    install: Add OPPWAMobile.xcframework to the app's Frameworks
+    official: true
+    note: >-
+      Official ACI/OPPWA iOS Mobile SDK (owned by ACI Worldwide) that HyperPay
+      provides for native COPYandPAY / server-to-server mobile checkout.
+  - language: kotlin
+    platform: android
+    registry: vendor
+    name: com.oppwa.mobile:oppwa.mobile
+    url: https://hyperpay.docs.oppwa.com/tutorials/mobile-sdk
+    install: Add the com.oppwa.mobile SDK AAR per the HyperPay mobile SDK guide
+    official: true
+    note: Official ACI/OPPWA Android Mobile SDK provided by HyperPay.
+  - language: dart
+    platform: flutter
+    registry: pub.dev
+    name: hyperpay
+    url: https://github.com/YazeedAlKhalaf/hyperpay
+    install: flutter pub add hyperpay
+    official: false
+    note: Community Flutter plugin wrapping the official HyperPay/OPPWA mobile SDK.
+  - language: php
+    registry: packagist
+    name: hyperpay (Laravel)
+    url: https://github.com/noaman-mahmoud/HyperPay
+    install: composer require (community package)
+    official: false
+    note: Community Laravel/PHP integration for the HyperPay REST API.
+  - language: python
+    registry: pypi
+    name: ecommerce-hyperpay
+    url: https://github.com/open-craft/ecommerce-hyperpay
+    install: pip install (Open edX payment processor plugin)
+    official: false
+    note: Community Open edX ecommerce payment-processor backend for HyperPay.

@@ -1,0 +1,40 @@
+generated: '2026-07-17'
+method: searched
+source: https://hyperpay.docs.oppwa.com/tutorials/webhooks
+spec_type: Webhooks
+notes: >-
+  HyperPay/OPPWA publishes no machine-readable AsyncAPI document, but documents a
+  full webhook notification system. This artifact captures that webhook catalog
+  (type: Webhooks). Payloads are AES-256-GCM encrypted. The legacy notificationUrl
+  request parameter is deprecated in favor of configured webhooks.
+configuration:
+  location: Back-office UI, Administration > Webhooks
+  activation: Newly created webhooks are inactive by default and must be tested and activated.
+  fields_option: [ALL, NON_CUSTOMER_DATA]
+  wrapper: [raw-hex, json-wrapped]
+  failure_alerts: Daily email to configured recipients on delivery failure.
+security:
+  algorithm: AES-256-GCM
+  key: 64-character hex string (256-bit secret configured per webhook)
+  headers:
+    - X-Initialization-Vector
+    - X-Authentication-Tag
+  payload_encoding: encrypted hexadecimal string (optionally JSON-wrapped)
+delivery:
+  expected_response: HTTP 2xx within 30 seconds
+  retry: escalating interval (1 min -> 30 min -> daily) up to 30 days on non-2xx/timeout
+message_envelope:
+  fields:
+    type: PAYMENT | REGISTRATION | SCHEDULE | RISK
+    action: CREATED | UPDATED | DELETED
+    payload: mirrors the corresponding API response object
+events:
+  - type: PAYMENT
+    description: Transaction / payment status change notifications.
+  - type: REGISTRATION
+    actions: [CREATED, UPDATED, DELETED]
+    description: Stored-token (registration) lifecycle changes.
+  - type: SCHEDULE
+    description: Scheduled (recurring) payment execution updates.
+  - type: RISK
+    description: Risk assessment / fraud decision notifications.

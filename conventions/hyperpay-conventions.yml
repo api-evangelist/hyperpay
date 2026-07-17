@@ -1,0 +1,49 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  https://hyperpay.docs.oppwa.com/reference/parameters + tutorials +
+  derived from openapi/hyperpay-openapi.yml
+notes: >-
+  Cross-cutting request/response semantics for the HyperPay (ACI/OPPWA) REST API.
+  Cross-links: authentication/hyperpay-authentication.yml,
+  errors/hyperpay-result-codes.yml, lifecycle/hyperpay-lifecycle.yml,
+  asyncapi/hyperpay-webhooks.yml, rate-limits/hyperpay-rate-limits.yml.
+authentication:
+  style: bearer-plus-entity
+  detail: >-
+    Authorization: Bearer <access-token> header PLUS an entityId channel
+    identifier on every request (form field on writes, query param on reads).
+  ref: authentication/hyperpay-authentication.yml
+content_type:
+  request: application/x-www-form-urlencoded; charset=UTF-8
+  response: application/json
+  note: Flat, dotted form fields (e.g. card.number, card.expiryMonth) on writes.
+forward_compatibility:
+  documented: true
+  rule: >-
+    "expect new fields being added to the JSON structure at any time in the
+    future" — clients must parse tolerantly and not fail on unknown fields.
+idempotency:
+  supported: false
+  note: >-
+    No Idempotency-Key header or idempotent-retry contract is documented. Retries
+    of write operations are NOT guaranteed safe; reconcile via GET /v1/query/{id}
+    before re-submitting a payment.
+pagination:
+  supported: false
+  note: No list endpoints with pagination; status is retrieved per-resource by id.
+versioning:
+  style: uri-path
+  current: v1
+  ref: lifecycle/hyperpay-lifecycle.yml
+error_envelope:
+  field: result.code
+  description_field: result.description
+  success_by: regex match on result.code (NOT HTTP status)
+  ref: errors/hyperpay-result-codes.yml
+events:
+  webhooks: true
+  ref: asyncapi/hyperpay-webhooks.yml
+rate_limit_signaling:
+  documented: false
+  ref: rate-limits/hyperpay-rate-limits.yml

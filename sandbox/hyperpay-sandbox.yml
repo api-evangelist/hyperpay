@@ -1,0 +1,36 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  https://hyperpay.docs.oppwa.com/tutorials/integration-guide +
+  /reference/parameters + /reference/resultCodes
+notes: >-
+  HyperPay/OPPWA separates test from live by HOST and by credentials, not by a
+  key prefix. Test and live each have their own entityId (channel) + Bearer
+  access token issued in the back-office UI. No test card numbers are reproduced
+  here because the docs test-accounts page could not be retrieved verbatim on
+  2026-07-17; merchants must use the card list published at
+  /reference/parameters#test-accounts. Never use real cards in test.
+environments:
+  test:
+    host: https://test.oppwa.com
+    also: https://eu-test.oppwa.com
+    base_path: /v1
+    note: Integration / test host. Requires test entityId + test access token.
+  live:
+    host: https://eu-prod.oppwa.com
+    base_path: /v1
+    note: Production host. Requires live entityId + live access token.
+test_mode_result_codes:
+  - code: '000.100.110'
+    description: "Request successfully processed in 'Merchant in Integrator Test Mode'"
+    note: >-
+      A successful payment in the TEST system returns 000.100.110 (in LIVE the
+      success code is 000.000.000). Any other code is a failed test payment.
+test_cards:
+  note: >-
+    Published at https://hyperpay.docs.oppwa.com/reference/parameters#test-accounts
+    (card list not reproduced verbatim here — do not invent numbers).
+  reference: https://hyperpay.docs.oppwa.com/reference/parameters#test-accounts
+credentials:
+  location: Back-office UI, Administration > Account data (access token) and channel entityId.
+  separation: Distinct entityId + access token per environment (test vs live) and per payment-method channel.

@@ -1,0 +1,29 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  https://hyperpay.docs.oppwa.com/tutorials/integration-guide (COPYandPAY) +
+  ACI/OPPWA Mobile SDK docs
+notes: >-
+  Client-side / embeddable payment surfaces HyperPay provides, distinct from the
+  server SDKs in packages/. The COPYandPAY widget is a hosted, PCI-DSS-scope-
+  reducing browser form; the Mobile SDK provides native drop-in UI.
+families:
+  - name: COPYandPAY widget
+    type: hosted-web-form
+    loader: paymentWidgets.js
+    loader_url_pattern: https://{host}/v1/paymentWidgets.js?checkoutId={id}
+    mount: <form class="paymentWidgets" data-brands="VISA MASTER AMEX MADA STC_PAY APPLEPAY">
+    description: >-
+      Browser-side JavaScript widget loaded with a checkout id (from POST
+      /v1/checkouts). Card data is captured browser-to-platform, keeping raw PAN
+      off the merchant server and minimizing PCI scope. Renders card, mada,
+      STC Pay and Apple Pay method tabs.
+    docs: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+  - name: ACI/OPPWA Mobile SDK UI
+    type: native-mobile-ui
+    platforms: [ios, android]
+    description: >-
+      Prebuilt native checkout UI (card entry, brand detection, 3DS handling)
+      for iOS (OPPWAMobile.xcframework) and Android (com.oppwa.mobile). See
+      packages/hyperpay-packages.yml for the SDK binaries.
+    docs: https://hyperpay.docs.oppwa.com/tutorials/mobile-sdk

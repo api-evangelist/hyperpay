@@ -18,7 +18,7 @@ tags:
 - Apple Pay
 - Cards
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
 specificationVersion: '0.19'
 apis:
 - aid: hyperpay:hyperpay-copyandpay-api
@@ -153,6 +153,50 @@ common:
   url: finops/hyperpay-finops.yml
 - url: https://www.hyperpay.com/blog/
   type: Blog
+- type: DeveloperPortal
+  url: https://hyperpay.docs.oppwa.com/
+- type: APIReference
+  url: https://hyperpay.docs.oppwa.com/reference/parameters
+- type: GettingStarted
+  url: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+- type: Support
+  url: https://www.hyperpay.com/contact/
+- type: PrivacyPolicy
+  url: https://www.hyperpay.com/privacy-policy/
+- type: Packages
+  url: packages/hyperpay-packages.yml
+- type: SDKs
+  url: packages/hyperpay-packages.yml
+- type: MCPServer
+  url: mcp/hyperpay-mcp.yml
+- type: LLMsTxt
+  url: llms/hyperpay-llms.txt
+- type: Overlay
+  url: overlays/hyperpay-openapi-overlay.yaml
+- type: Conformance
+  url: conformance/hyperpay-conformance.yml
+- type: Compliance
+  url: security/hyperpay-trust-center.yml
+- type: ErrorCatalog
+  url: errors/hyperpay-result-codes.yml
+- type: DeclineCodes
+  url: errors/hyperpay-decline-codes.yml
+- type: Lifecycle
+  url: lifecycle/hyperpay-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/hyperpay-lifecycle.yml
+- type: Sandbox
+  url: sandbox/hyperpay-sandbox.yml
+- type: Conventions
+  url: conventions/hyperpay-conventions.yml
+- type: Components
+  url: components/hyperpay-components.yml
+- type: DataModel
+  url: data-model/hyperpay-data-model.yml
+- type: Webhooks
+  url: asyncapi/hyperpay-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
