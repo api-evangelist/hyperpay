@@ -1,0 +1,178 @@
+openapi: 3.0.1
+info:
+  title: HyperPay Payment COPYandPAY Payments API
+  description: 'HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).'
+  termsOfService: https://www.hyperpay.com/terms-and-conditions/
+  contact:
+    name: HyperPay Support
+    url: https://www.hyperpay.com/contact-us/
+    email: info@hyperpay.com
+  version: '1.0'
+servers:
+- url: https://eu-prod.oppwa.com
+  description: Production (live) host
+- url: https://test.oppwa.com
+  description: Integration / test host
+security:
+- bearerAuth: []
+tags:
+- name: Payments
+  description: Server-to-Server payments and back-office operations.
+paths:
+  /v1/payments:
+    post:
+      operationId: createPayment
+      tags:
+      - Payments
+      summary: Server-to-Server payment
+      description: Submits a payment directly server-to-server (requires PCI-DSS scope to handle raw card data). paymentType PA performs a pre-authorization and DB performs a debit. Supports mada, STC_PAY and APPLEPAY brands in addition to VISA / MASTER / AMEX.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '200':
+          description: Payment processed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+  /v1/payments/{id}:
+    post:
+      operationId: managePayment
+      tags:
+      - Payments
+      summary: Back-office operation on a prior payment
+      description: References an existing payment by id to perform a capture (paymentType CP), refund (RF), or reversal/void (RV).
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The id of the referenced payment.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BackofficeRequest'
+      responses:
+        '200':
+          description: Operation processed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+components:
+  schemas:
+    BackofficeRequest:
+      type: object
+      required:
+      - entityId
+      - paymentType
+      properties:
+        entityId:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+          example: SAR
+        paymentType:
+          type: string
+          enum:
+          - CP
+          - RF
+          - RV
+          description: CP = capture, RF = refund, RV = reversal/void.
+    PaymentRequest:
+      type: object
+      required:
+      - entityId
+      - amount
+      - currency
+      - paymentBrand
+      - paymentType
+      properties:
+        entityId:
+          type: string
+        amount:
+          type: string
+          example: '92.00'
+        currency:
+          type: string
+          example: SAR
+        paymentBrand:
+          type: string
+          example: MADA
+          description: e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.
+        paymentType:
+          type: string
+          enum:
+          - DB
+          - PA
+        card.number:
+          type: string
+        card.holder:
+          type: string
+        card.expiryMonth:
+          type: string
+        card.expiryYear:
+          type: string
+        card.cvv:
+          type: string
+    PaymentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        paymentType:
+          type: string
+        paymentBrand:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+        card:
+          type: object
+          properties:
+            bin:
+              type: string
+            last4Digits:
+              type: string
+            holder:
+              type: string
+            expiryMonth:
+              type: string
+            expiryYear:
+              type: string
+        registrationId:
+          type: string
+        merchantTransactionId:
+          type: string
+        timestamp:
+          type: string
+        ndc:
+          type: string
+    Result:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
+          example: 000.100.110
+        description:
+          type: string
+          example: Request successfully processed in 'Merchant in Integrator Test Mode'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: accessToken
+      description: 'Access token issued by HyperPay, sent as `Authorization: Bearer <token>`. Every request must ALSO carry an `entityId` channel identifier (as a form field on writes or a query parameter on reads).'

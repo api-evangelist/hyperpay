@@ -1,0 +1,163 @@
+openapi: 3.0.1
+info:
+  title: HyperPay Payment COPYandPAY API
+  description: 'HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).'
+  termsOfService: https://www.hyperpay.com/terms-and-conditions/
+  contact:
+    name: HyperPay Support
+    url: https://www.hyperpay.com/contact-us/
+    email: info@hyperpay.com
+  version: '1.0'
+servers:
+- url: https://eu-prod.oppwa.com
+  description: Production (live) host
+- url: https://test.oppwa.com
+  description: Integration / test host
+security:
+- bearerAuth: []
+tags:
+- name: COPYandPAY
+  description: Hosted widget checkout preparation and result.
+paths:
+  /v1/checkouts:
+    post:
+      operationId: createCheckout
+      tags:
+      - COPYandPAY
+      summary: Prepare a checkout
+      description: Creates a checkout and returns a checkout `id` used to initialize the COPYandPAY JavaScript widget in the shopper's browser. Send entityId, amount, currency and paymentType (e.g. DB for debit, PA for pre-authorization).
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CheckoutRequest'
+      responses:
+        '200':
+          description: Checkout prepared.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckoutResponse'
+  /v1/checkouts/{id}/payment:
+    get:
+      operationId: getCheckoutStatus
+      tags:
+      - COPYandPAY
+      summary: Get payment status of a checkout
+      description: Retrieves the result of a checkout after the shopper submits the COPYandPAY widget. Pass the entityId as a query parameter and the Bearer token in the Authorization header.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The checkout id returned by POST /v1/checkouts.
+        schema:
+          type: string
+      - name: entityId
+        in: query
+        required: true
+        description: The channel (entity) identifier.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Payment result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+components:
+  schemas:
+    CheckoutRequest:
+      type: object
+      required:
+      - entityId
+      - amount
+      - currency
+      - paymentType
+      properties:
+        entityId:
+          type: string
+          description: Channel (entity) identifier.
+        amount:
+          type: string
+          example: '92.00'
+          description: Decimal amount as a string with two decimals.
+        currency:
+          type: string
+          example: SAR
+          description: ISO 4217 currency code.
+        paymentType:
+          type: string
+          enum:
+          - DB
+          - PA
+          description: DB = debit, PA = pre-authorization.
+        merchantTransactionId:
+          type: string
+    PaymentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        paymentType:
+          type: string
+        paymentBrand:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+        card:
+          type: object
+          properties:
+            bin:
+              type: string
+            last4Digits:
+              type: string
+            holder:
+              type: string
+            expiryMonth:
+              type: string
+            expiryYear:
+              type: string
+        registrationId:
+          type: string
+        merchantTransactionId:
+          type: string
+        timestamp:
+          type: string
+        ndc:
+          type: string
+    CheckoutResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The checkout id used to load the COPYandPAY widget.
+        result:
+          $ref: '#/components/schemas/Result'
+        buildNumber:
+          type: string
+        timestamp:
+          type: string
+        ndc:
+          type: string
+    Result:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
+          example: 000.100.110
+        description:
+          type: string
+          example: Request successfully processed in 'Merchant in Integrator Test Mode'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: accessToken
+      description: 'Access token issued by HyperPay, sent as `Authorization: Bearer <token>`. Every request must ALSO carry an `entityId` channel identifier (as a form field on writes or a query parameter on reads).'

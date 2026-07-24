@@ -1,0 +1,226 @@
+openapi: 3.0.1
+info:
+  title: HyperPay Payment COPYandPAY Registrations API
+  description: 'HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).'
+  termsOfService: https://www.hyperpay.com/terms-and-conditions/
+  contact:
+    name: HyperPay Support
+    url: https://www.hyperpay.com/contact-us/
+    email: info@hyperpay.com
+  version: '1.0'
+servers:
+- url: https://eu-prod.oppwa.com
+  description: Production (live) host
+- url: https://test.oppwa.com
+  description: Integration / test host
+security:
+- bearerAuth: []
+tags:
+- name: Registrations
+  description: Tokenization of payment instruments for one-click and recurring.
+paths:
+  /v1/registrations:
+    post:
+      operationId: createRegistration
+      tags:
+      - Registrations
+      summary: Register (tokenize) a payment instrument
+      description: Stores a payment instrument and returns a registration token id that can be used for one-click or recurring payments without re-collecting card data.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegistrationRequest'
+      responses:
+        '200':
+          description: Registration created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+  /v1/registrations/{id}:
+    get:
+      operationId: getRegistration
+      tags:
+      - Registrations
+      summary: Retrieve a registration token
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Registration details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+    delete:
+      operationId: deleteRegistration
+      tags:
+      - Registrations
+      summary: Delete a registration token
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: entityId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Registration deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+  /v1/registrations/{id}/payments:
+    post:
+      operationId: createRegistrationPayment
+      tags:
+      - Registrations
+      summary: Pay with a stored registration token
+      description: Executes a one-click or recurring payment against a previously stored registration token id.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: The registration token id.
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '200':
+          description: Payment processed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+components:
+  schemas:
+    PaymentRequest:
+      type: object
+      required:
+      - entityId
+      - amount
+      - currency
+      - paymentBrand
+      - paymentType
+      properties:
+        entityId:
+          type: string
+        amount:
+          type: string
+          example: '92.00'
+        currency:
+          type: string
+          example: SAR
+        paymentBrand:
+          type: string
+          example: MADA
+          description: e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.
+        paymentType:
+          type: string
+          enum:
+          - DB
+          - PA
+        card.number:
+          type: string
+        card.holder:
+          type: string
+        card.expiryMonth:
+          type: string
+        card.expiryYear:
+          type: string
+        card.cvv:
+          type: string
+    PaymentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        paymentType:
+          type: string
+        paymentBrand:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+        card:
+          type: object
+          properties:
+            bin:
+              type: string
+            last4Digits:
+              type: string
+            holder:
+              type: string
+            expiryMonth:
+              type: string
+            expiryYear:
+              type: string
+        registrationId:
+          type: string
+        merchantTransactionId:
+          type: string
+        timestamp:
+          type: string
+        ndc:
+          type: string
+    RegistrationRequest:
+      type: object
+      required:
+      - entityId
+      - paymentBrand
+      properties:
+        entityId:
+          type: string
+        paymentBrand:
+          type: string
+          example: VISA
+        card.number:
+          type: string
+        card.holder:
+          type: string
+        card.expiryMonth:
+          type: string
+        card.expiryYear:
+          type: string
+        card.cvv:
+          type: string
+    Result:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
+          example: 000.100.110
+        description:
+          type: string
+          example: Request successfully processed in 'Merchant in Integrator Test Mode'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: accessToken
+      description: 'Access token issued by HyperPay, sent as `Authorization: Bearer <token>`. Every request must ALSO carry an `entityId` channel identifier (as a form field on writes or a query parameter on reads).'
