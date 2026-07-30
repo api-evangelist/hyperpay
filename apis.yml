@@ -7,7 +7,20 @@ description: HyperPay is a MENA / Saudi Arabia online payment gateway built on t
   and a Server-to-Server integration, accepting cards (VISA, MASTER, AMEX), the Saudi
   domestic mada scheme, STC Pay, and Apple Pay, priced and settled in SAR. Additional
   products include HyperSplit (marketplace payouts) and HyperBill (invoicing).
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/hyperpay.png
 tags:
 - Payments
 - Payment Gateway
@@ -21,85 +34,6 @@ created: '2026-07-17'
 modified: '2026-07-18'
 specificationVersion: '0.19'
 apis:
-- aid: hyperpay:hyperpay-copyandpay-api
-  name: HyperPay COPYandPAY API
-  tags:
-  - Checkout
-  - Hosted Widget
-  - Cards
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
-  baseURL: https://eu-prod.oppwa.com/v1
-  properties:
-  - url: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
-    type: Documentation
-  - url: https://hyperpay.docs.oppwa.com/reference/parameters
-    type: APIReference
-  - url: openapi/hyperpay-openapi.yml
-    type: OpenAPI
-  - url: collections/hyperpay.postman_collection.json
-    type: PostmanCollection
-  description: Prepare a checkout (POST /v1/checkouts) to initialize the COPYandPAY
-    JavaScript widget in the shopper's browser, then read the result via GET
-    /v1/checkouts/{id}/payment. Sensitive card data flows browser-to-platform,
-    minimizing merchant PCI scope.
-- aid: hyperpay:hyperpay-server-to-server-api
-  name: HyperPay Server-to-Server Payments API
-  tags:
-  - Payments
-  - Server to Server
-  - mada
-  - Apple Pay
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://hyperpay.docs.oppwa.com/tutorials/server-to-server
-  baseURL: https://eu-prod.oppwa.com/v1
-  properties:
-  - url: https://hyperpay.docs.oppwa.com/tutorials/server-to-server
-    type: Documentation
-  - url: https://hyperpay.docs.oppwa.com/reference/parameters
-    type: APIReference
-  - url: openapi/hyperpay-openapi.yml
-    type: OpenAPI
-  - url: collections/hyperpay.postman_collection.json
-    type: PostmanCollection
-  description: Direct server-to-server payments (POST /v1/payments) with paymentType
-    PA (pre-authorization) or DB (debit) across VISA, MASTER, AMEX, mada, STC Pay
-    and Apple Pay, plus back-office capture, refund and reversal via POST
-    /v1/payments/{id}. Requires merchant PCI-DSS scope.
-- aid: hyperpay:hyperpay-registration-tokens-api
-  name: HyperPay Registration Tokens API
-  tags:
-  - Tokenization
-  - Recurring
-  - One Click
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://hyperpay.docs.oppwa.com/tutorials/manage-payments/registration
-  baseURL: https://eu-prod.oppwa.com/v1
-  properties:
-  - url: https://hyperpay.docs.oppwa.com/tutorials/manage-payments/registration
-    type: Documentation
-  - url: openapi/hyperpay-openapi.yml
-    type: OpenAPI
-  - url: collections/hyperpay.postman_collection.json
-    type: PostmanCollection
-  description: Tokenize a payment instrument (POST /v1/registrations) and charge it
-    later for one-click or recurring payments (POST /v1/registrations/{id}/payments),
-    with retrieval and deletion of stored tokens.
-- aid: hyperpay:hyperpay-query-api
-  name: HyperPay Query API
-  tags:
-  - Reporting
-  - Status
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://hyperpay.docs.oppwa.com/tutorials/reporting
-  baseURL: https://eu-prod.oppwa.com/v1
-  properties:
-  - url: https://hyperpay.docs.oppwa.com/tutorials/reporting
-    type: Documentation
-  - url: openapi/hyperpay-openapi.yml
-    type: OpenAPI
-  description: Retrieve the status of a prior payment by id or by the resourcePath
-    returned in a redirect/webhook notification (GET /v1/query/{id}).
 - aid: hyperpay:hyperpay-hypersplit
   name: HyperPay HyperSplit
   tags:
@@ -112,9 +46,10 @@ apis:
   properties:
   - url: https://www.hyperpay.com/hypersplit/
     type: Documentation
-  description: HyperSplit distributes a single collected payment across multiple
-    sub-merchants or beneficiaries for marketplace and platform payout scenarios.
-    Onboarding and API access are arranged with a HyperPay account manager.
+  description: >-
+    HyperSplit distributes a single collected payment across multiple sub-merchants or beneficiaries for
+    marketplace and platform payout scenarios. Onboarding and API access are arranged with a HyperPay
+    account manager.
 - aid: hyperpay:hyperpay-hyperbill
   name: HyperPay HyperBill
   tags:
@@ -126,9 +61,100 @@ apis:
   properties:
   - url: https://www.hyperpay.com/hyperbill/
     type: Documentation
-  description: HyperBill issues invoices and shareable payment links that collect
-    payment through the HyperPay platform without a custom checkout integration.
+  description: >-
+    HyperBill issues invoices and shareable payment links that collect payment through the HyperPay platform
+    without a custom checkout integration.
+- aid: hyperpay:hyperpay-copyandpay-api
+  name: HyperPay COPYandPAY API
+  description: Hosted widget checkout preparation and result.
+  humanURL: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+  baseURL: https://eu-prod.oppwa.com/v1
+  tags:
+  - COPYandPAY
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperpay-copyandpay-api-openapi.yml
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+  - type: APIReference
+    url: https://hyperpay.docs.oppwa.com/reference/parameters
+  - type: PostmanCollection
+    url: collections/hyperpay.postman_collection.json
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/server-to-server
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/manage-payments/registration
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/reporting
+- aid: hyperpay:hyperpay-payments-api
+  name: HyperPay Payments API
+  description: Server-to-Server payments and back-office operations.
+  humanURL: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+  baseURL: https://eu-prod.oppwa.com/v1
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperpay-payments-api-openapi.yml
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+  - type: APIReference
+    url: https://hyperpay.docs.oppwa.com/reference/parameters
+  - type: PostmanCollection
+    url: collections/hyperpay.postman_collection.json
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/server-to-server
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/manage-payments/registration
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/reporting
+- aid: hyperpay:hyperpay-query-api
+  name: HyperPay Query API
+  description: Query the status of a prior payment.
+  humanURL: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+  baseURL: https://eu-prod.oppwa.com/v1
+  tags:
+  - Query
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperpay-query-api-openapi.yml
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+  - type: APIReference
+    url: https://hyperpay.docs.oppwa.com/reference/parameters
+  - type: PostmanCollection
+    url: collections/hyperpay.postman_collection.json
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/server-to-server
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/manage-payments/registration
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/reporting
+- aid: hyperpay:hyperpay-registrations-api
+  name: HyperPay Registrations API
+  description: Tokenization of payment instruments for one-click and recurring.
+  humanURL: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+  baseURL: https://eu-prod.oppwa.com/v1
+  tags:
+  - Registrations
+  properties:
+  - type: OpenAPI
+    url: openapi/hyperpay-registrations-api-openapi.yml
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/integration-guide
+  - type: APIReference
+    url: https://hyperpay.docs.oppwa.com/reference/parameters
+  - type: PostmanCollection
+    url: collections/hyperpay.postman_collection.json
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/server-to-server
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/manage-payments/registration
+  - type: Documentation
+    url: https://hyperpay.docs.oppwa.com/tutorials/reporting
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/hyperpay/overview
 - type: AgenticAccess
   url: agentic-access/hyperpay-agentic-access.yml
 - type: TrustCenter
