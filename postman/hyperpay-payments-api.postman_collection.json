@@ -1,0 +1,384 @@
+{
+  "info": {
+    "_postman_id": "6bf54e3b-b3cd-4a5b-8057-fc489bc1977f",
+    "name": "HyperPay Payment COPYandPAY Payments API",
+    "description": "HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).\n\nContact Support:\n Name: HyperPay Support\n Email: info@hyperpay.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:57:12.000Z",
+    "updatedAt": "2026-07-28T01:57:12.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6bf54e3b-b3cd-4a5b-8057-fc489bc1977f"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "payments",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Back-office operation on a prior payment",
+                  "id": "42630e4c-2bbe-4336-a3e9-3ae3aea86ac9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) ",
+                          "key": "entityId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) CP = capture, RF = refund, RV = reversal/void.",
+                          "key": "paymentType",
+                          "value": "CP"
+                        },
+                        {
+                          "key": "amount",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "currency",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/payments/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "payments",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "9e47d044-ed1c-4597-bf2d-d4733c52b486",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) The id of the referenced payment."
+                        }
+                      ]
+                    },
+                    "description": "References an existing payment by id to perform a capture (paymentType CP), refund (RF), or reversal/void (RV)."
+                  },
+                  "response": [
+                    {
+                      "id": "ece03a88-8a11-406e-938e-6c522a45a9ef",
+                      "name": "Operation processed.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "entityId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) CP = capture, RF = refund, RV = reversal/void.",
+                              "key": "paymentType",
+                              "value": "CP"
+                            },
+                            {
+                              "key": "amount",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "currency",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/payments/:id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "payments",
+                            ":id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"paymentBrand\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"result\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"card\": {\n    \"bin\": \"<string>\",\n    \"last4Digits\": \"<string>\",\n    \"holder\": \"<string>\",\n    \"expiryMonth\": \"<string>\",\n    \"expiryYear\": \"<string>\"\n  },\n  \"registrationId\": \"<string>\",\n  \"merchantTransactionId\": \"<string>\",\n  \"timestamp\": \"<string>\",\n  \"ndc\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:57:12.000Z",
+                      "updatedAt": "2026-07-28T01:57:12.000Z",
+                      "uid": "35240-ece03a88-8a11-406e-938e-6c522a45a9ef"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:57:12.000Z",
+                  "updatedAt": "2026-07-28T01:57:12.000Z",
+                  "uid": "35240-42630e4c-2bbe-4336-a3e9-3ae3aea86ac9"
+                }
+              ],
+              "id": "48ff7bb9-bcb1-4a2d-b63f-a9c1ef566e03",
+              "createdAt": "2026-07-28T01:57:12.000Z",
+              "updatedAt": "2026-07-28T01:57:12.000Z",
+              "uid": "35240-48ff7bb9-bcb1-4a2d-b63f-a9c1ef566e03"
+            },
+            {
+              "name": "Server-to-Server payment",
+              "id": "0da5f5d1-de02-4b9b-b897-c049c484dac1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "entityId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "amount",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "currency",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.",
+                      "key": "paymentBrand",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "paymentType",
+                      "value": "PA"
+                    },
+                    {
+                      "key": "card.number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card.holder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card.expiryMonth",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card.expiryYear",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card.cvv",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/payments",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "payments"
+                  ]
+                },
+                "description": "Submits a payment directly server-to-server (requires PCI-DSS scope to handle raw card data). paymentType PA performs a pre-authorization and DB performs a debit. Supports mada, STC_PAY and APPLEPAY brands in addition to VISA / MASTER / AMEX."
+              },
+              "response": [
+                {
+                  "id": "fde26fa8-fb52-403f-8d87-6fd374672090",
+                  "name": "Payment processed.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) ",
+                          "key": "entityId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "amount",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "currency",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.",
+                          "key": "paymentBrand",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "paymentType",
+                          "value": "PA"
+                        },
+                        {
+                          "key": "card.number",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "card.holder",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "card.expiryMonth",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "card.expiryYear",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "card.cvv",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/payments",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "payments"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"paymentBrand\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"result\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"card\": {\n    \"bin\": \"<string>\",\n    \"last4Digits\": \"<string>\",\n    \"holder\": \"<string>\",\n    \"expiryMonth\": \"<string>\",\n    \"expiryYear\": \"<string>\"\n  },\n  \"registrationId\": \"<string>\",\n  \"merchantTransactionId\": \"<string>\",\n  \"timestamp\": \"<string>\",\n  \"ndc\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:57:12.000Z",
+                  "updatedAt": "2026-07-28T01:57:12.000Z",
+                  "uid": "35240-fde26fa8-fb52-403f-8d87-6fd374672090"
+                }
+              ],
+              "createdAt": "2026-07-28T01:57:12.000Z",
+              "updatedAt": "2026-07-28T01:57:12.000Z",
+              "uid": "35240-0da5f5d1-de02-4b9b-b897-c049c484dac1"
+            }
+          ],
+          "id": "dfd0e76f-3a94-475a-9d93-8da5ed522eb2",
+          "createdAt": "2026-07-28T01:57:12.000Z",
+          "updatedAt": "2026-07-28T01:57:12.000Z",
+          "uid": "35240-dfd0e76f-3a94-475a-9d93-8da5ed522eb2"
+        }
+      ],
+      "id": "051c707f-3570-49ed-884d-ce4b3c3b9f92",
+      "createdAt": "2026-07-28T01:57:12.000Z",
+      "updatedAt": "2026-07-28T01:57:12.000Z",
+      "uid": "35240-051c707f-3570-49ed-884d-ce4b3c3b9f92"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://eu-prod.oppwa.com"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "info": {
+    "_postman_id": "3665f6ea-c5d7-4bb2-bc8a-06351cb5408a",
+    "name": "HyperPay Payment COPYandPAY Query API",
+    "description": "HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).\n\nContact Support:\n Name: HyperPay Support\n Email: info@hyperpay.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:57:12.000Z",
+    "updatedAt": "2026-07-28T01:57:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3665f6ea-c5d7-4bb2-bc8a-06351cb5408a"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "query",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Query a payment status",
+                  "id": "4f887048-7223-4b21-9b96-0e53ad379151",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/query/:id?entityId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "query",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "entityId",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "a85ccd83-f12a-4c47-a94a-66ed595cfe12",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the status of a payment by its id (or by the resourcePath returned in a redirect/webhook notification)."
+                  },
+                  "response": [
+                    {
+                      "id": "1605b794-c31b-476c-bc24-4ea33dac206e",
+                      "name": "Payment status.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/query/:id?entityId=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "query",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "entityId",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"paymentBrand\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"result\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"card\": {\n    \"bin\": \"<string>\",\n    \"last4Digits\": \"<string>\",\n    \"holder\": \"<string>\",\n    \"expiryMonth\": \"<string>\",\n    \"expiryYear\": \"<string>\"\n  },\n  \"registrationId\": \"<string>\",\n  \"merchantTransactionId\": \"<string>\",\n  \"timestamp\": \"<string>\",\n  \"ndc\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:57:13.000Z",
+                      "updatedAt": "2026-07-28T01:57:13.000Z",
+                      "uid": "35240-1605b794-c31b-476c-bc24-4ea33dac206e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:57:13.000Z",
+                  "updatedAt": "2026-07-28T01:57:13.000Z",
+                  "uid": "35240-4f887048-7223-4b21-9b96-0e53ad379151"
+                }
+              ],
+              "id": "a27b641b-73bc-4a1c-876f-87382fee612e",
+              "createdAt": "2026-07-28T01:57:13.000Z",
+              "updatedAt": "2026-07-28T01:57:13.000Z",
+              "uid": "35240-a27b641b-73bc-4a1c-876f-87382fee612e"
+            }
+          ],
+          "id": "a81e0d81-80c3-4822-bccb-b3882ecd2aaa",
+          "createdAt": "2026-07-28T01:57:13.000Z",
+          "updatedAt": "2026-07-28T01:57:13.000Z",
+          "uid": "35240-a81e0d81-80c3-4822-bccb-b3882ecd2aaa"
+        }
+      ],
+      "id": "e229c561-6c2c-492e-924a-91a255840c0c",
+      "createdAt": "2026-07-28T01:57:13.000Z",
+      "updatedAt": "2026-07-28T01:57:13.000Z",
+      "uid": "35240-e229c561-6c2c-492e-924a-91a255840c0c"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://eu-prod.oppwa.com"
+    }
+  ]
+}

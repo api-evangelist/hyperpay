@@ -1,0 +1,625 @@
+{
+  "info": {
+    "_postman_id": "64c6c920-0466-46da-8137-9b171a87feff",
+    "name": "HyperPay Payment COPYandPAY Registrations API",
+    "description": "HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).\n\nContact Support:\n Name: HyperPay Support\n Email: info@hyperpay.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:57:13.000Z",
+    "updatedAt": "2026-07-28T01:57:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-64c6c920-0466-46da-8137-9b171a87feff"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "registrations",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "payments",
+                  "item": [
+                    {
+                      "name": "Pay with a stored registration token",
+                      "id": "74463953-c970-4151-85b5-dc3697672892",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/x-www-form-urlencoded"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "urlencoded",
+                          "urlencoded": [
+                            {
+                              "description": "(Required) ",
+                              "key": "entityId",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) ",
+                              "key": "amount",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) ",
+                              "key": "currency",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.",
+                              "key": "paymentBrand",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "(Required) ",
+                              "key": "paymentType",
+                              "value": "PA"
+                            },
+                            {
+                              "key": "card.number",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "card.holder",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "card.expiryMonth",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "card.expiryYear",
+                              "value": "<string>"
+                            },
+                            {
+                              "key": "card.cvv",
+                              "value": "<string>"
+                            }
+                          ]
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/registrations/:id/payments",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "registrations",
+                            ":id",
+                            "payments"
+                          ],
+                          "variable": [
+                            {
+                              "id": "fa2c2236-d222-4f2f-87b9-356861373422",
+                              "key": "id",
+                              "value": "<string>",
+                              "description": "(Required) The registration token id."
+                            }
+                          ]
+                        },
+                        "description": "Executes a one-click or recurring payment against a previously stored registration token id."
+                      },
+                      "response": [
+                        {
+                          "id": "902e62bf-0c3a-4ffe-86e5-4812c28abb36",
+                          "name": "Payment processed.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/x-www-form-urlencoded"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "urlencoded",
+                              "urlencoded": [
+                                {
+                                  "description": "(Required) ",
+                                  "key": "entityId",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) ",
+                                  "key": "amount",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) ",
+                                  "key": "currency",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.",
+                                  "key": "paymentBrand",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "(Required) ",
+                                  "key": "paymentType",
+                                  "value": "PA"
+                                },
+                                {
+                                  "key": "card.number",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "card.holder",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "card.expiryMonth",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "card.expiryYear",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "key": "card.cvv",
+                                  "value": "<string>"
+                                }
+                              ]
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/registrations/:id/payments",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "registrations",
+                                ":id",
+                                "payments"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"paymentBrand\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"result\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"card\": {\n    \"bin\": \"<string>\",\n    \"last4Digits\": \"<string>\",\n    \"holder\": \"<string>\",\n    \"expiryMonth\": \"<string>\",\n    \"expiryYear\": \"<string>\"\n  },\n  \"registrationId\": \"<string>\",\n  \"merchantTransactionId\": \"<string>\",\n  \"timestamp\": \"<string>\",\n  \"ndc\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:57:14.000Z",
+                          "updatedAt": "2026-07-28T01:57:14.000Z",
+                          "uid": "35240-902e62bf-0c3a-4ffe-86e5-4812c28abb36"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:57:14.000Z",
+                      "updatedAt": "2026-07-28T01:57:14.000Z",
+                      "uid": "35240-74463953-c970-4151-85b5-dc3697672892"
+                    }
+                  ],
+                  "id": "f65e505d-3ffa-406d-a510-3c3f1b3f1344",
+                  "createdAt": "2026-07-28T01:57:14.000Z",
+                  "updatedAt": "2026-07-28T01:57:14.000Z",
+                  "uid": "35240-f65e505d-3ffa-406d-a510-3c3f1b3f1344"
+                },
+                {
+                  "name": "Retrieve a registration token",
+                  "id": "c24ea5fe-3d95-46f8-a6af-32e7fa9c32ca",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/registrations/:id?entityId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "registrations",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "entityId",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "c33aa432-af1d-4601-867c-97e3b8cf9d37",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "7c5bc8ce-4647-4432-9bb2-242d672abd56",
+                      "name": "Registration details.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/registrations/:id?entityId=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "registrations",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "entityId",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"paymentBrand\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"result\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"card\": {\n    \"bin\": \"<string>\",\n    \"last4Digits\": \"<string>\",\n    \"holder\": \"<string>\",\n    \"expiryMonth\": \"<string>\",\n    \"expiryYear\": \"<string>\"\n  },\n  \"registrationId\": \"<string>\",\n  \"merchantTransactionId\": \"<string>\",\n  \"timestamp\": \"<string>\",\n  \"ndc\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:57:14.000Z",
+                      "updatedAt": "2026-07-28T01:57:14.000Z",
+                      "uid": "35240-7c5bc8ce-4647-4432-9bb2-242d672abd56"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:57:14.000Z",
+                  "updatedAt": "2026-07-28T01:57:14.000Z",
+                  "uid": "35240-c24ea5fe-3d95-46f8-a6af-32e7fa9c32ca"
+                },
+                {
+                  "name": "Delete a registration token",
+                  "id": "e685219b-b884-42dc-a1aa-b212473c2cb9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/registrations/:id?entityId=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "registrations",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) ",
+                          "key": "entityId",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "47a67253-8776-47a8-8e9c-797e5d218437",
+                          "key": "id",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "id": "aa20c72a-3485-4561-8160-95988ad792c9",
+                      "name": "Registration deleted.",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/registrations/:id?entityId=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "registrations",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) ",
+                              "key": "entityId",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"paymentBrand\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"result\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"card\": {\n    \"bin\": \"<string>\",\n    \"last4Digits\": \"<string>\",\n    \"holder\": \"<string>\",\n    \"expiryMonth\": \"<string>\",\n    \"expiryYear\": \"<string>\"\n  },\n  \"registrationId\": \"<string>\",\n  \"merchantTransactionId\": \"<string>\",\n  \"timestamp\": \"<string>\",\n  \"ndc\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:57:14.000Z",
+                      "updatedAt": "2026-07-28T01:57:14.000Z",
+                      "uid": "35240-aa20c72a-3485-4561-8160-95988ad792c9"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:57:14.000Z",
+                  "updatedAt": "2026-07-28T01:57:14.000Z",
+                  "uid": "35240-e685219b-b884-42dc-a1aa-b212473c2cb9"
+                }
+              ],
+              "id": "dcc21cd7-608a-4e08-a826-4ee34de41bf0",
+              "createdAt": "2026-07-28T01:57:14.000Z",
+              "updatedAt": "2026-07-28T01:57:14.000Z",
+              "uid": "35240-dcc21cd7-608a-4e08-a826-4ee34de41bf0"
+            },
+            {
+              "name": "Register (tokenize) a payment instrument",
+              "id": "607c6fdf-4b96-40d5-9fe8-205c97772485",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "description": "(Required) ",
+                      "key": "entityId",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) ",
+                      "key": "paymentBrand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card.number",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card.holder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card.expiryMonth",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card.expiryYear",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "card.cvv",
+                      "value": "<string>"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/registrations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "registrations"
+                  ]
+                },
+                "description": "Stores a payment instrument and returns a registration token id that can be used for one-click or recurring payments without re-collecting card data."
+              },
+              "response": [
+                {
+                  "id": "72e413eb-45fb-4174-ba4d-de56f4e0b207",
+                  "name": "Registration created.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "description": "(Required) ",
+                          "key": "entityId",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "(Required) ",
+                          "key": "paymentBrand",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "card.number",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "card.holder",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "card.expiryMonth",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "card.expiryYear",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "card.cvv",
+                          "value": "<string>"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/registrations",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "registrations"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"paymentType\": \"<string>\",\n  \"paymentBrand\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"result\": {\n    \"code\": \"<string>\",\n    \"description\": \"<string>\"\n  },\n  \"card\": {\n    \"bin\": \"<string>\",\n    \"last4Digits\": \"<string>\",\n    \"holder\": \"<string>\",\n    \"expiryMonth\": \"<string>\",\n    \"expiryYear\": \"<string>\"\n  },\n  \"registrationId\": \"<string>\",\n  \"merchantTransactionId\": \"<string>\",\n  \"timestamp\": \"<string>\",\n  \"ndc\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:57:14.000Z",
+                  "updatedAt": "2026-07-28T01:57:14.000Z",
+                  "uid": "35240-72e413eb-45fb-4174-ba4d-de56f4e0b207"
+                }
+              ],
+              "createdAt": "2026-07-28T01:57:14.000Z",
+              "updatedAt": "2026-07-28T01:57:14.000Z",
+              "uid": "35240-607c6fdf-4b96-40d5-9fe8-205c97772485"
+            }
+          ],
+          "id": "12f31a34-9f08-42c7-bfcd-ea44c98f13b1",
+          "createdAt": "2026-07-28T01:57:14.000Z",
+          "updatedAt": "2026-07-28T01:57:14.000Z",
+          "uid": "35240-12f31a34-9f08-42c7-bfcd-ea44c98f13b1"
+        }
+      ],
+      "id": "16d1f7bc-727c-4f36-8d72-d32472835809",
+      "createdAt": "2026-07-28T01:57:14.000Z",
+      "updatedAt": "2026-07-28T01:57:14.000Z",
+      "uid": "35240-16d1f7bc-727c-4f36-8d72-d32472835809"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://eu-prod.oppwa.com"
+    }
+  ]
+}

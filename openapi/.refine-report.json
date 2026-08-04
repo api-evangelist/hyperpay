@@ -1,0 +1,20 @@
+{
+  "provider": "hyperpay",
+  "sources": [
+    "hyperpay-copyandpay-api-openapi.yml",
+    "hyperpay-payments-api-openapi.yml",
+    "hyperpay-query-api-openapi.yml",
+    "hyperpay-registrations-api-openapi.yml"
+  ],
+  "outputs": [
+    "hyperpay-copyandpay-api-openapi.yml",
+    "hyperpay-payments-api-openapi.yml",
+    "hyperpay-query-api-openapi.yml",
+    "hyperpay-registrations-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
