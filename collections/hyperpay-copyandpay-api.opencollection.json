@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HyperPay Payment COPYandPAY API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "COPYandPAY",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Prepare a checkout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu-prod.oppwa.com/v1/checkouts",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Creates a checkout and returns a checkout `id` used to initialize the COPYandPAY JavaScript widget in the shopper's browser. Send entityId, amount, currency and paymentType (e.g. DB for debit, PA for pre-authorization)."
+        },
+        {
+          "info": {
+            "name": "Get payment status of a checkout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu-prod.oppwa.com/v1/checkouts/:id/payment",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The checkout id returned by POST /v1/checkouts."
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query",
+                "description": "The channel (entity) identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves the result of a checkout after the shopper submits the COPYandPAY widget. Pass the entityId as a query parameter and the Bearer token in the Authorization header."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

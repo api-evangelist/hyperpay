@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HyperPay Payment COPYandPAY Registrations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Registrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register (tokenize) a payment instrument",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu-prod.oppwa.com/v1/registrations",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Stores a payment instrument and returns a registration token id that can be used for one-click or recurring payments without re-collecting card data."
+        },
+        {
+          "info": {
+            "name": "Retrieve a registration token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu-prod.oppwa.com/v1/registrations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a registration token"
+        },
+        {
+          "info": {
+            "name": "Delete a registration token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://eu-prod.oppwa.com/v1/registrations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete a registration token"
+        },
+        {
+          "info": {
+            "name": "Pay with a stored registration token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu-prod.oppwa.com/v1/registrations/:id/payments",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The registration token id."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Executes a one-click or recurring payment against a previously stored registration token id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

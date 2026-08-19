@@ -1,0 +1,316 @@
+{
+  "item": [
+    {
+      "id": "4c7b486d-b797-4872-8c75-8aed888c3253",
+      "name": "COPYandPAY",
+      "description": {
+        "content": "Hosted widget checkout preparation and result.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "adec3f88-3c3c-4a0d-a5e9-fc44f6b3e7ae",
+          "name": "Prepare a checkout",
+          "request": {
+            "name": "Prepare a checkout",
+            "description": {
+              "content": "Creates a checkout and returns a checkout `id` used to initialize the COPYandPAY JavaScript widget in the shopper's browser. Send entityId, amount, currency and paymentType (e.g. DB for debit, PA for pre-authorization).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "checkouts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "entityId",
+                  "value": "<string>",
+                  "description": "(Required) Channel (entity) identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<string>",
+                  "description": "(Required) Decimal amount as a string with two decimals."
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "(Required) ISO 4217 currency code."
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentType",
+                  "value": "<string>",
+                  "description": "(Required) DB = debit, PA = pre-authorization."
+                },
+                {
+                  "disabled": false,
+                  "key": "merchantTransactionId",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "62347a35-a57c-4560-ba04-0a0e57fb753a",
+              "name": "Checkout prepared.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "checkouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Channel (entity) identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "entityId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Decimal amount as a string with two decimals.",
+                        "type": "text/plain"
+                      },
+                      "key": "amount",
+                      "value": "92.00"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ISO 4217 currency code.",
+                        "type": "text/plain"
+                      },
+                      "key": "currency",
+                      "value": "SAR"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) DB = debit, PA = pre-authorization.",
+                        "type": "text/plain"
+                      },
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "merchantTransactionId",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"result\": {\n    \"code\": \"000.100.110\",\n    \"description\": \"Request successfully processed in 'Merchant in Integrator Test Mode'\"\n  },\n  \"buildNumber\": \"string\",\n  \"timestamp\": \"string\",\n  \"ndc\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df225cd0-6736-4ac2-945d-672e58a67479",
+          "name": "Get payment status of a checkout",
+          "request": {
+            "name": "Get payment status of a checkout",
+            "description": {
+              "content": "Retrieves the result of a checkout after the shopper submits the COPYandPAY widget. Pass the entityId as a query parameter and the Bearer token in the Authorization header.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "checkouts",
+                ":id",
+                "payment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "entityId",
+                  "value": "<string>",
+                  "description": "(Required) The channel (entity) identifier."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The checkout id returned by POST /v1/checkouts."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "029b0b4d-70b7-48fb-84c9-b68e42aea314",
+              "name": "Payment result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "checkouts",
+                    ":id",
+                    "payment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The checkout id returned by POST /v1/checkouts."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"paymentType\": \"string\",\n  \"paymentBrand\": \"string\",\n  \"amount\": \"string\",\n  \"currency\": \"string\",\n  \"result\": {\n    \"code\": \"000.100.110\",\n    \"description\": \"Request successfully processed in 'Merchant in Integrator Test Mode'\"\n  },\n  \"card\": {\n    \"bin\": \"string\",\n    \"last4Digits\": \"string\",\n    \"holder\": \"string\",\n    \"expiryMonth\": \"string\",\n    \"expiryYear\": \"string\"\n  },\n  \"registrationId\": \"string\",\n  \"merchantTransactionId\": \"string\",\n  \"timestamp\": \"string\",\n  \"ndc\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://eu-prod.oppwa.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "53e4a796-7b58-4e7d-bb97-7e3f50d4a67f",
+    "name": "HyperPay Payment COPYandPAY API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).\n\nContact Support:\n Name: HyperPay Support\n Email: info@hyperpay.com",
+      "type": "text/plain"
+    }
+  }
+}

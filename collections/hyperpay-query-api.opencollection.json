@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HyperPay Payment COPYandPAY Query API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query a payment status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://eu-prod.oppwa.com/v1/query/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "entityId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves the status of a payment by its id (or by the resourcePath returned in a redirect/webhook notification)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

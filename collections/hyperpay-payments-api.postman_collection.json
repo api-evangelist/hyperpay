@@ -1,0 +1,420 @@
+{
+  "item": [
+    {
+      "id": "7cbe920b-1768-43c1-996f-a0334d23cf78",
+      "name": "Payments",
+      "description": {
+        "content": "Server-to-Server payments and back-office operations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fbbb2677-daf8-43b0-b5ff-c1ba03d0f048",
+          "name": "Server-to-Server payment",
+          "request": {
+            "name": "Server-to-Server payment",
+            "description": {
+              "content": "Submits a payment directly server-to-server (requires PCI-DSS scope to handle raw card data). paymentType PA performs a pre-authorization and DB performs a debit. Supports mada, STC_PAY and APPLEPAY brands in addition to VISA / MASTER / AMEX.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "entityId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentBrand",
+                  "value": "<string>",
+                  "description": "(Required) e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY."
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentType",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "card.number",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "card.holder",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "card.expiryMonth",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "card.expiryYear",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "card.cvv",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ad8d0c54-f5cd-40b5-a04a-49670d772740",
+              "name": "Payment processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "entityId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "amount",
+                      "value": "92.00"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "currency",
+                      "value": "SAR"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.",
+                        "type": "text/plain"
+                      },
+                      "key": "paymentBrand",
+                      "value": "MADA"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "card.number",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "card.holder",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "card.expiryMonth",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "card.expiryYear",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "card.cvv",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"paymentType\": \"string\",\n  \"paymentBrand\": \"string\",\n  \"amount\": \"string\",\n  \"currency\": \"string\",\n  \"result\": {\n    \"code\": \"000.100.110\",\n    \"description\": \"Request successfully processed in 'Merchant in Integrator Test Mode'\"\n  },\n  \"card\": {\n    \"bin\": \"string\",\n    \"last4Digits\": \"string\",\n    \"holder\": \"string\",\n    \"expiryMonth\": \"string\",\n    \"expiryYear\": \"string\"\n  },\n  \"registrationId\": \"string\",\n  \"merchantTransactionId\": \"string\",\n  \"timestamp\": \"string\",\n  \"ndc\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08b3ec29-7e43-4a90-952b-5bbe9e3e6a3f",
+          "name": "Back-office operation on a prior payment",
+          "request": {
+            "name": "Back-office operation on a prior payment",
+            "description": {
+              "content": "References an existing payment by id to perform a capture (paymentType CP), refund (RF), or reversal/void (RV).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payments",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the referenced payment."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "entityId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "paymentType",
+                  "value": "<string>",
+                  "description": "(Required) CP = capture, RF = refund, RV = reversal/void."
+                },
+                {
+                  "disabled": false,
+                  "key": "amount",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "currency",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0dba8af2-a513-433a-bfd4-355e47cc9b8d",
+              "name": "Operation processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payments",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the referenced payment."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "entityId",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) CP = capture, RF = refund, RV = reversal/void.",
+                        "type": "text/plain"
+                      },
+                      "key": "paymentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "amount",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "currency",
+                      "value": "SAR"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"paymentType\": \"string\",\n  \"paymentBrand\": \"string\",\n  \"amount\": \"string\",\n  \"currency\": \"string\",\n  \"result\": {\n    \"code\": \"000.100.110\",\n    \"description\": \"Request successfully processed in 'Merchant in Integrator Test Mode'\"\n  },\n  \"card\": {\n    \"bin\": \"string\",\n    \"last4Digits\": \"string\",\n    \"holder\": \"string\",\n    \"expiryMonth\": \"string\",\n    \"expiryYear\": \"string\"\n  },\n  \"registrationId\": \"string\",\n  \"merchantTransactionId\": \"string\",\n  \"timestamp\": \"string\",\n  \"ndc\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://eu-prod.oppwa.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e81a22c4-811a-4bf5-9f64-4ef80b22872e",
+    "name": "HyperPay Payment COPYandPAY Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).\n\nContact Support:\n Name: HyperPay Support\n Email: info@hyperpay.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HyperPay Payment COPYandPAY Payments API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Server-to-Server payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu-prod.oppwa.com/v1/payments",
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "Submits a payment directly server-to-server (requires PCI-DSS scope to handle raw card data). paymentType PA performs a pre-authorization and DB performs a debit. Supports mada, STC_PAY and APPLEPAY brands in addition to VISA / MASTER / AMEX."
+        },
+        {
+          "info": {
+            "name": "Back-office operation on a prior payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://eu-prod.oppwa.com/v1/payments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the referenced payment."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": []
+            }
+          },
+          "docs": "References an existing payment by id to perform a capture (paymentType CP), refund (RF), or reversal/void (RV)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

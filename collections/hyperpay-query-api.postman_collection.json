@@ -1,0 +1,151 @@
+{
+  "item": [
+    {
+      "id": "f0342982-c43c-491e-87de-a72c9814681c",
+      "name": "Query",
+      "description": {
+        "content": "Query the status of a prior payment.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff3f3cf6-ae1a-48e5-b418-07cebf377acd",
+          "name": "Query a payment status",
+          "request": {
+            "name": "Query a payment status",
+            "description": {
+              "content": "Retrieves the status of a payment by its id (or by the resourcePath returned in a redirect/webhook notification).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "query",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "entityId",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95b7591d-2306-40c6-85a6-c0998c0126d7",
+              "name": "Payment status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "query",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "entityId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"paymentType\": \"string\",\n  \"paymentBrand\": \"string\",\n  \"amount\": \"string\",\n  \"currency\": \"string\",\n  \"result\": {\n    \"code\": \"000.100.110\",\n    \"description\": \"Request successfully processed in 'Merchant in Integrator Test Mode'\"\n  },\n  \"card\": {\n    \"bin\": \"string\",\n    \"last4Digits\": \"string\",\n    \"holder\": \"string\",\n    \"expiryMonth\": \"string\",\n    \"expiryYear\": \"string\"\n  },\n  \"registrationId\": \"string\",\n  \"merchantTransactionId\": \"string\",\n  \"timestamp\": \"string\",\n  \"ndc\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://eu-prod.oppwa.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b4aaa9f8-9338-4307-8883-2d046c887f93",
+    "name": "HyperPay Payment COPYandPAY Query API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).\n\nContact Support:\n Name: HyperPay Support\n Email: info@hyperpay.com",
+      "type": "text/plain"
+    }
+  }
+}
