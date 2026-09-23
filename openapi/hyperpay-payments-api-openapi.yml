@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: HyperPay Payment COPYandPAY Payments API
-  description: 'HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform. This REST API powers the COPYandPAY hosted widget and the Server-to-Server integration, supporting card brands (VISA, MASTER, AMEX), the Saudi domestic scheme mada, STC Pay, and Apple Pay. All requests are sent as application/x-www-form-urlencoded over TLS, authenticated with an `entityId` (channel identifier) plus an `Authorization: Bearer` access token. Amounts are decimal strings and currency is an ISO 4217 code (SAR for Saudi merchants).'
+  title: HyperPay Payment Payments API
+  description: HyperPay is a MENA / Saudi Arabia payment gateway built on the ACI / OPPWA Open Payment Platform.
   termsOfService: https://www.hyperpay.com/terms-and-conditions/
   contact:
     name: HyperPay Support
@@ -68,6 +68,16 @@ paths:
                 $ref: '#/components/schemas/PaymentResponse'
 components:
   schemas:
+    Result:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
+          example: 000.100.110
+        description:
+          type: string
+          example: Request successfully processed in 'Merchant in Integrator Test Mode'
     BackofficeRequest:
       type: object
       required:
@@ -160,16 +170,6 @@ components:
           type: string
         ndc:
           type: string
-    Result:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
-          example: 000.100.110
-        description:
-          type: string
-          example: Request successfully processed in 'Merchant in Integrator Test Mode'
   securitySchemes:
     bearerAuth:
       type: http
