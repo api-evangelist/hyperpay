@@ -78,6 +78,42 @@ components:
         description:
           type: string
           example: Request successfully processed in 'Merchant in Integrator Test Mode'
+    PaymentResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        paymentType:
+          type: string
+        paymentBrand:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+        result:
+          $ref: '#/components/schemas/Result'
+        card:
+          type: object
+          properties:
+            bin:
+              type: string
+            last4Digits:
+              type: string
+            holder:
+              type: string
+            expiryMonth:
+              type: string
+            expiryYear:
+              type: string
+        registrationId:
+          type: string
+        merchantTransactionId:
+          type: string
+        timestamp:
+          type: string
+        ndc:
+          type: string
     CheckoutResponse:
       type: object
       properties:
@@ -118,42 +154,6 @@ components:
           - PA
           description: DB = debit, PA = pre-authorization.
         merchantTransactionId:
-          type: string
-    PaymentResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        paymentType:
-          type: string
-        paymentBrand:
-          type: string
-        amount:
-          type: string
-        currency:
-          type: string
-        result:
-          $ref: '#/components/schemas/Result'
-        card:
-          type: object
-          properties:
-            bin:
-              type: string
-            last4Digits:
-              type: string
-            holder:
-              type: string
-            expiryMonth:
-              type: string
-            expiryYear:
-              type: string
-        registrationId:
-          type: string
-        merchantTransactionId:
-          type: string
-        timestamp:
-          type: string
-        ndc:
           type: string
   securitySchemes:
     bearerAuth:
