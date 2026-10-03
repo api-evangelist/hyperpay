@@ -68,6 +68,33 @@ paths:
                 $ref: '#/components/schemas/PaymentResponse'
 components:
   schemas:
+    CheckoutRequest:
+      type: object
+      required:
+      - entityId
+      - amount
+      - currency
+      - paymentType
+      properties:
+        entityId:
+          type: string
+          description: Channel (entity) identifier.
+        amount:
+          type: string
+          example: '92.00'
+          description: Decimal amount as a string with two decimals.
+        currency:
+          type: string
+          example: SAR
+          description: ISO 4217 currency code.
+        paymentType:
+          type: string
+          enum:
+          - DB
+          - PA
+          description: DB = debit, PA = pre-authorization.
+        merchantTransactionId:
+          type: string
     Result:
       type: object
       properties:
@@ -78,6 +105,20 @@ components:
         description:
           type: string
           example: Request successfully processed in 'Merchant in Integrator Test Mode'
+    CheckoutResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The checkout id used to load the COPYandPAY widget.
+        result:
+          $ref: '#/components/schemas/Result'
+        buildNumber:
+          type: string
+        timestamp:
+          type: string
+        ndc:
+          type: string
     PaymentResponse:
       type: object
       properties:
@@ -113,47 +154,6 @@ components:
         timestamp:
           type: string
         ndc:
-          type: string
-    CheckoutResponse:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The checkout id used to load the COPYandPAY widget.
-        result:
-          $ref: '#/components/schemas/Result'
-        buildNumber:
-          type: string
-        timestamp:
-          type: string
-        ndc:
-          type: string
-    CheckoutRequest:
-      type: object
-      required:
-      - entityId
-      - amount
-      - currency
-      - paymentType
-      properties:
-        entityId:
-          type: string
-          description: Channel (entity) identifier.
-        amount:
-          type: string
-          example: '92.00'
-          description: Decimal amount as a string with two decimals.
-        currency:
-          type: string
-          example: SAR
-          description: ISO 4217 currency code.
-        paymentType:
-          type: string
-          enum:
-          - DB
-          - PA
-          description: DB = debit, PA = pre-authorization.
-        merchantTransactionId:
           type: string
   securitySchemes:
     bearerAuth:

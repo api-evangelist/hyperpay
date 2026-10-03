@@ -68,6 +68,16 @@ paths:
                 $ref: '#/components/schemas/PaymentResponse'
 components:
   schemas:
+    Result:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
+          example: 000.100.110
+        description:
+          type: string
+          example: Request successfully processed in 'Merchant in Integrator Test Mode'
     PaymentRequest:
       type: object
       required:
@@ -104,16 +114,6 @@ components:
           type: string
         card.cvv:
           type: string
-    Result:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
-          example: 000.100.110
-        description:
-          type: string
-          example: Request successfully processed in 'Merchant in Integrator Test Mode'
     BackofficeRequest:
       type: object
       required:
