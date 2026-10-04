@@ -125,27 +125,6 @@ components:
         description:
           type: string
           example: Request successfully processed in 'Merchant in Integrator Test Mode'
-    RegistrationRequest:
-      type: object
-      required:
-      - entityId
-      - paymentBrand
-      properties:
-        entityId:
-          type: string
-        paymentBrand:
-          type: string
-          example: VISA
-        card.number:
-          type: string
-        card.holder:
-          type: string
-        card.expiryMonth:
-          type: string
-        card.expiryYear:
-          type: string
-        card.cvv:
-          type: string
     PaymentRequest:
       type: object
       required:
@@ -217,6 +196,27 @@ components:
         timestamp:
           type: string
         ndc:
+          type: string
+    RegistrationRequest:
+      type: object
+      required:
+      - entityId
+      - paymentBrand
+      properties:
+        entityId:
+          type: string
+        paymentBrand:
+          type: string
+          example: VISA
+        card.number:
+          type: string
+        card.holder:
+          type: string
+        card.expiryMonth:
+          type: string
+        card.expiryYear:
+          type: string
+        card.cvv:
           type: string
   securitySchemes:
     bearerAuth:

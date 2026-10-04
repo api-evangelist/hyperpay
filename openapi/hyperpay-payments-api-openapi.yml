@@ -78,42 +78,6 @@ components:
         description:
           type: string
           example: Request successfully processed in 'Merchant in Integrator Test Mode'
-    PaymentRequest:
-      type: object
-      required:
-      - entityId
-      - amount
-      - currency
-      - paymentBrand
-      - paymentType
-      properties:
-        entityId:
-          type: string
-        amount:
-          type: string
-          example: '92.00'
-        currency:
-          type: string
-          example: SAR
-        paymentBrand:
-          type: string
-          example: MADA
-          description: e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.
-        paymentType:
-          type: string
-          enum:
-          - DB
-          - PA
-        card.number:
-          type: string
-        card.holder:
-          type: string
-        card.expiryMonth:
-          type: string
-        card.expiryYear:
-          type: string
-        card.cvv:
-          type: string
     BackofficeRequest:
       type: object
       required:
@@ -169,6 +133,42 @@ components:
         timestamp:
           type: string
         ndc:
+          type: string
+    PaymentRequest:
+      type: object
+      required:
+      - entityId
+      - amount
+      - currency
+      - paymentBrand
+      - paymentType
+      properties:
+        entityId:
+          type: string
+        amount:
+          type: string
+          example: '92.00'
+        currency:
+          type: string
+          example: SAR
+        paymentBrand:
+          type: string
+          example: MADA
+          description: e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.
+        paymentType:
+          type: string
+          enum:
+          - DB
+          - PA
+        card.number:
+          type: string
+        card.holder:
+          type: string
+        card.expiryMonth:
+          type: string
+        card.expiryYear:
+          type: string
+        card.cvv:
           type: string
   securitySchemes:
     bearerAuth:
