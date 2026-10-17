@@ -68,16 +68,42 @@ paths:
                 $ref: '#/components/schemas/PaymentResponse'
 components:
   schemas:
-    Result:
+    PaymentRequest:
       type: object
+      required:
+      - entityId
+      - amount
+      - currency
+      - paymentBrand
+      - paymentType
       properties:
-        code:
+        entityId:
           type: string
-          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
-          example: 000.100.110
-        description:
+        amount:
           type: string
-          example: Request successfully processed in 'Merchant in Integrator Test Mode'
+          example: '92.00'
+        currency:
+          type: string
+          example: SAR
+        paymentBrand:
+          type: string
+          example: MADA
+          description: e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.
+        paymentType:
+          type: string
+          enum:
+          - DB
+          - PA
+        card.number:
+          type: string
+        card.holder:
+          type: string
+        card.expiryMonth:
+          type: string
+        card.expiryYear:
+          type: string
+        card.cvv:
+          type: string
     BackofficeRequest:
       type: object
       required:
@@ -134,42 +160,16 @@ components:
           type: string
         ndc:
           type: string
-    PaymentRequest:
+    Result:
       type: object
-      required:
-      - entityId
-      - amount
-      - currency
-      - paymentBrand
-      - paymentType
       properties:
-        entityId:
+        code:
           type: string
-        amount:
+          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
+          example: 000.100.110
+        description:
           type: string
-          example: '92.00'
-        currency:
-          type: string
-          example: SAR
-        paymentBrand:
-          type: string
-          example: MADA
-          description: e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.
-        paymentType:
-          type: string
-          enum:
-          - DB
-          - PA
-        card.number:
-          type: string
-        card.holder:
-          type: string
-        card.expiryMonth:
-          type: string
-        card.expiryYear:
-          type: string
-        card.cvv:
-          type: string
+          example: Request successfully processed in 'Merchant in Integrator Test Mode'
   securitySchemes:
     bearerAuth:
       type: http

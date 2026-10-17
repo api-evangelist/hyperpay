@@ -46,16 +46,6 @@ paths:
                 $ref: '#/components/schemas/PaymentResponse'
 components:
   schemas:
-    Result:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
-          example: 000.100.110
-        description:
-          type: string
-          example: Request successfully processed in 'Merchant in Integrator Test Mode'
     PaymentResponse:
       type: object
       properties:
@@ -92,6 +82,16 @@ components:
           type: string
         ndc:
           type: string
+    Result:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
+          example: 000.100.110
+        description:
+          type: string
+          example: Request successfully processed in 'Merchant in Integrator Test Mode'
   securitySchemes:
     bearerAuth:
       type: http

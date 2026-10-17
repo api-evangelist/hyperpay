@@ -115,52 +115,6 @@ paths:
                 $ref: '#/components/schemas/PaymentResponse'
 components:
   schemas:
-    Result:
-      type: object
-      properties:
-        code:
-          type: string
-          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
-          example: 000.100.110
-        description:
-          type: string
-          example: Request successfully processed in 'Merchant in Integrator Test Mode'
-    PaymentRequest:
-      type: object
-      required:
-      - entityId
-      - amount
-      - currency
-      - paymentBrand
-      - paymentType
-      properties:
-        entityId:
-          type: string
-        amount:
-          type: string
-          example: '92.00'
-        currency:
-          type: string
-          example: SAR
-        paymentBrand:
-          type: string
-          example: MADA
-          description: e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.
-        paymentType:
-          type: string
-          enum:
-          - DB
-          - PA
-        card.number:
-          type: string
-        card.holder:
-          type: string
-        card.expiryMonth:
-          type: string
-        card.expiryYear:
-          type: string
-        card.cvv:
-          type: string
     PaymentResponse:
       type: object
       properties:
@@ -197,6 +151,42 @@ components:
           type: string
         ndc:
           type: string
+    PaymentRequest:
+      type: object
+      required:
+      - entityId
+      - amount
+      - currency
+      - paymentBrand
+      - paymentType
+      properties:
+        entityId:
+          type: string
+        amount:
+          type: string
+          example: '92.00'
+        currency:
+          type: string
+          example: SAR
+        paymentBrand:
+          type: string
+          example: MADA
+          description: e.g. VISA, MASTER, AMEX, MADA, STC_PAY, APPLEPAY.
+        paymentType:
+          type: string
+          enum:
+          - DB
+          - PA
+        card.number:
+          type: string
+        card.holder:
+          type: string
+        card.expiryMonth:
+          type: string
+        card.expiryYear:
+          type: string
+        card.cvv:
+          type: string
     RegistrationRequest:
       type: object
       required:
@@ -218,6 +208,16 @@ components:
           type: string
         card.cvv:
           type: string
+    Result:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Result code, e.g. 000.000.000 (success) / 000.100.110 (test success).
+          example: 000.100.110
+        description:
+          type: string
+          example: Request successfully processed in 'Merchant in Integrator Test Mode'
   securitySchemes:
     bearerAuth:
       type: http
