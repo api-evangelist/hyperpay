@@ -1,4 +1,4 @@
-# HyperPay (hyperpay)
+# HyperPay
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,147 +66,152 @@
 
 HyperPay is a MENA / Saudi Arabia online payment gateway built on the ACI / OPPWA Open Payment Platform. Its REST API powers the COPYandPAY hosted widget and a Server-to-Server integration, accepting cards (VISA, MASTER, AMEX), the Saudi domestic mada scheme, STC Pay, and Apple Pay, priced and settled in SAR. Additional products include HyperSplit (marketplace payouts) and HyperBill (invoicing).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/hyperpay/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/hyperpay/refs/heads/main/apis.yml)
+**Areas:** Payments · Payment Gateway · Fintech · MENA · Saudi Arabia · mada · Apple Pay · Cards
 
-## Tags
+## HyperPay on APIs.io
 
-- Payments
-- Payment Gateway
-- Fintech
-- MENA
-- Saudi Arabia
-- mada
-- Apple Pay
-- Cards
+Everything profiled for HyperPay is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hyperpay/](https://apis.io/providers/hyperpay/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (6)
 
-- **Created:** 2026-07-17
-- **Modified:** 2026-07-17
+- [HyperPay HyperSplit](https://apis.io/apis/hyperpay/hyperpay-hypersplit/) — HyperSplit distributes a single collected payment across multiple sub-merchants or beneficiaries for marketplace and platform payout scenarios. Onboarding…
+- [HyperPay HyperBill](https://apis.io/apis/hyperpay/hyperpay-hyperbill/) — HyperBill issues invoices and shareable payment links that collect payment through the HyperPay platform without a custom checkout integration.
+- [HyperPay COPYandPAY API](https://apis.io/apis/hyperpay/hyperpay-copyandpay-api/) — Hosted widget checkout preparation and result.
+- [HyperPay Payments API](https://apis.io/apis/hyperpay/hyperpay-payments-api/) — Server-to-Server payments and back-office operations.
+- [HyperPay Query API](https://apis.io/apis/hyperpay/hyperpay-query-api/) — Query the status of a prior payment.
+- [HyperPay Registrations API](https://apis.io/apis/hyperpay/hyperpay-registrations-api/) — Tokenization of payment instruments for one-click and recurring.
 
-## APIs
+### Published properties
 
-### HyperPay COPYandPAY API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Prepare a checkout (POST /v1/checkouts) to initialize the COPYandPAY JavaScript widget in the shopper's browser, then read the result via GET /v1/checkouts/{id}/payment. Sensitive card data flows browser-to-platform, minimizing merchant PCI scope.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://hyperpay.docs.oppwa.com/tutorials/integration-guide](https://hyperpay.docs.oppwa.com/tutorials/integration-guide)
-- **Base URL:** `https://eu-prod.oppwa.com/v1`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Hyperpay Webhooks](https://apis.io/asyncapis/hyperpay/hyperpay-webhooks/)
 
-- Checkout
-- Hosted Widget
-- Cards
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://hyperpay.docs.oppwa.com/tutorials/integration-guide)
-- [API Reference](https://hyperpay.docs.oppwa.com/reference/parameters)
-- [OpenAPI](openapi/hyperpay-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hyperpay.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [hyperpay](https://apis.io/servers/hyperpay/hyperpay/)
 
-### HyperPay Server-to-Server Payments API
+#### Agentic access (1)
 
-Direct server-to-server payments (POST /v1/payments) with paymentType PA (pre-authorization) or DB (debit) across VISA, MASTER, AMEX, mada, STC Pay and Apple Pay, plus back-office capture, refund and reversal via POST /v1/payments/{id}. Requires merchant PCI-DSS scope.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://hyperpay.docs.oppwa.com/tutorials/server-to-server](https://hyperpay.docs.oppwa.com/tutorials/server-to-server)
-- **Base URL:** `https://eu-prod.oppwa.com/v1`
+- [Hyperpay Agentic Access](https://apis.io/agentic-access/hyperpay/hyperpay-agentic-access/)
 
-#### Tags
+#### Collections (8)
 
-- Payments
-- Server to Server
-- mada
-- Apple Pay
+Postman and Open Collection request collections.
 
-#### Properties
+- [HyperPay Payment COPYandPAY API](https://apis.io/collections/hyperpay/open-hyperpay-copyandpay-api/)
+- [HyperPay Payment COPYandPAY Payments API](https://apis.io/collections/hyperpay/open-hyperpay-payments-api/)
+- [HyperPay Payment COPYandPAY Query API](https://apis.io/collections/hyperpay/open-hyperpay-query-api/)
+- [HyperPay Payment COPYandPAY Registrations API](https://apis.io/collections/hyperpay/open-hyperpay-registrations-api/)
+- [HyperPay Payment COPYandPAY API](https://apis.io/collections/hyperpay/postman-hyperpay-copyandpay-api/)
+- [HyperPay Payment COPYandPAY Payments API](https://apis.io/collections/hyperpay/postman-hyperpay-payments-api/)
+- [HyperPay Payment COPYandPAY Query API](https://apis.io/collections/hyperpay/postman-hyperpay-query-api/)
+- [HyperPay Payment COPYandPAY Registrations API](https://apis.io/collections/hyperpay/postman-hyperpay-registrations-api/)
 
-- [Documentation](https://hyperpay.docs.oppwa.com/tutorials/server-to-server)
-- [API Reference](https://hyperpay.docs.oppwa.com/reference/parameters)
-- [OpenAPI](openapi/hyperpay-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hyperpay.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+#### Overlays (1)
 
-### HyperPay Registration Tokens API
+OpenAPI overlays, including conversational phrasing for each operation.
 
-Tokenize a payment instrument (POST /v1/registrations) and charge it later for one-click or recurring payments (POST /v1/registrations/{id}/payments), with retrieval and deletion of stored tokens.
+- [Hyperpay Openapi Overlay](https://apis.io/overlays/hyperpay/hyperpay-openapi-overlay/)
 
-- **Human URL:** [https://hyperpay.docs.oppwa.com/tutorials/manage-payments/registration](https://hyperpay.docs.oppwa.com/tutorials/manage-payments/registration)
-- **Base URL:** `https://eu-prod.oppwa.com/v1`
+#### Security (4)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Tokenization
-- Recurring
-- One Click
+- [Hyperpay Authentication](https://apis.io/security/hyperpay/hyperpay-authentication/)
+- [Hyperpay Domain Security](https://apis.io/security/hyperpay/hyperpay-domain-security/)
+- [Hyperpay Trust Center](https://apis.io/security/hyperpay/hyperpay-trust-center/)
+- [Hyperpay Vulnerability Disclosure](https://apis.io/security/hyperpay/hyperpay-vulnerability-disclosure/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://hyperpay.docs.oppwa.com/tutorials/manage-payments/registration)
-- [OpenAPI](openapi/hyperpay-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hyperpay.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+Published plans, tiers and prices.
 
-### HyperPay Query API
+- [Hyperpay Plans Pricing](https://apis.io/plans/hyperpay/hyperpay-plans-pricing/)
 
-Retrieve the status of a prior payment by id or by the resourcePath returned in a redirect/webhook notification (GET /v1/query/{id}).
+#### Rate limits (1)
 
-- **Human URL:** [https://hyperpay.docs.oppwa.com/tutorials/reporting](https://hyperpay.docs.oppwa.com/tutorials/reporting)
-- **Base URL:** `https://eu-prod.oppwa.com/v1`
+Published request limits.
 
-#### Tags
+- [Hyperpay Rate Limits](https://apis.io/rate-limits/hyperpay/hyperpay-rate-limits/)
 
-- Reporting
-- Status
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://hyperpay.docs.oppwa.com/tutorials/reporting)
-- [OpenAPI](openapi/hyperpay-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Hyperpay Finops](https://apis.io/finops/hyperpay/hyperpay-finops/)
 
-### HyperPay HyperSplit
+## Where to find this API
 
-HyperSplit distributes a single collected payment across multiple sub-merchants or beneficiaries for marketplace and platform payout scenarios. Onboarding and API access are arranged with a HyperPay account manager.
-
-- **Human URL:** [https://www.hyperpay.com/hypersplit/](https://www.hyperpay.com/hypersplit/)
-- **Base URL:** `https://www.hyperpay.com/hypersplit/`
-
-#### Tags
-
-- Payouts
-- Marketplace
-- Split Payments
-
-#### Properties
-
-- [Documentation](https://www.hyperpay.com/hypersplit/)
-
-### HyperPay HyperBill
-
-HyperBill issues invoices and shareable payment links that collect payment through the HyperPay platform without a custom checkout integration.
-
-- **Human URL:** [https://www.hyperpay.com/hyperbill/](https://www.hyperpay.com/hyperbill/)
-- **Base URL:** `https://www.hyperpay.com/hyperbill/`
-
-#### Tags
-
-- Invoicing
-- Payment Links
-
-#### Properties
-
-- [Documentation](https://www.hyperpay.com/hyperbill/)
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.hyperpay.com/)
 - [Documentation](https://hyperpay.docs.oppwa.com/)
-- [LinkedIn](https://www.linkedin.com/company/hyperpay)
-- [Plans](plans/hyperpay-plans-pricing.yml)
-- [Rate Limits](rate-limits/hyperpay-rate-limits.yml)
-- [Fin Ops](finops/hyperpay-finops.yml)
+- [Getting started](https://hyperpay.docs.oppwa.com/tutorials/integration-guide)
+- [API reference](https://hyperpay.docs.oppwa.com/reference/parameters)
+- [Support](https://www.hyperpay.com/contact/)
 - [Blog](https://www.hyperpay.com/blog/)
+- [Privacy policy](https://www.hyperpay.com/privacy-policy/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 50.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 54.3 |
+| Contract governance | 18.2 |
+| Operational transparency | 31.6 |
+| Developer ergonomics | 74.4 |
+| Access clarity | 31.6 |
+
+**Agent readiness 27.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 41.1** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hyperpay/](https://apis.io/providers/hyperpay/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for HyperPay: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hyperpay/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
